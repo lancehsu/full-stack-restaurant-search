@@ -11,7 +11,8 @@
     "typescript": "^3.9.6"
   },
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only index.ts",
+    "start": "cd ./client && yarn build && cd ../ && ts-node-dev --respawn --transpile-only index.ts",
     "build": "npx tsc"
   },
   "devDependencies": {
