@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-export type DarkModeContext = {
+export type DarkModeContextType = {
   isDarkMode: boolean;
   setIsDarkMode: Dispatch<SetStateAction<boolean>>;
 };
-export const darModeContext = React.createContext<DarkModeContext>({
+export const DarkModeContext = React.createContext<DarkModeContextType>({
   isDarkMode: false,
   setIsDarkMode: () => undefined,
 });
