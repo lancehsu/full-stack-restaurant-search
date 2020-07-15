@@ -1,10 +1,12 @@
 import React, { FC, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
 import { Bookmark, Brightness2, BrightnessHigh } from '@material-ui/icons';
-import { darModeContext } from '../util/context';
+import { DarkModeContext } from '../util/context';
 
 const NavBar: FC = () => {
-  const { isDarkMode, setIsDarkMode } = useContext(darModeContext);
+  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
+  const history = useHistory();
   return (
     <AppBar style={{ gridColumn: '1 / span 12' }} position="static">
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -16,10 +18,15 @@ const NavBar: FC = () => {
         >
           {isDarkMode ? <BrightnessHigh /> : <Brightness2 />}
         </IconButton>
-        <IconButton>
+        <IconButton
+          color="inherit"
+          onClick={() => {
+            history.push('/favorites');
+          }}
+        >
           <Bookmark />
         </IconButton>
-        <Button>Login</Button>
+        <Button color="inherit">Login</Button>
       </Toolbar>
     </AppBar>
   );

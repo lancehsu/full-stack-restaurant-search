@@ -21,7 +21,10 @@ const App: FC = () => {
   useEffect(() => {
     setIsDarkMode(prefersDarkMode);
   }, [prefersDarkMode]);
-
+  useEffect(() => {
+    document.body.style.backgroundColor = isDarkMode ? '#424242' : '#fff';
+  }, [isDarkMode]);
+  
   return (
     <BrowserRouter>
       <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>

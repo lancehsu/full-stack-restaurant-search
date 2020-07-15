@@ -1,12 +1,12 @@
-import { PaletteOptions } from '@material-ui/core/styles/createPalette';
+import { ThemeOptions } from '@material-ui/core';
 
-const getMuiThemeObj = (prefersDarkMode: boolean): { palette: PaletteOptions } => ({
+const getMuiThemeObj = (prefersDarkMode: boolean): ThemeOptions  => ({
   palette: {
     type: prefersDarkMode ? 'dark' : 'light',
     primary: {
-      light: '#b2741a',
-      main: '#ffa726',
-      dark: '#ffb851',
+      light: '#f28933',
+      main: '#ef6c00',
+      dark: '#a74b00',
       contrastText: '#fff',
     },
     secondary: {
@@ -14,6 +14,11 @@ const getMuiThemeObj = (prefersDarkMode: boolean): { palette: PaletteOptions } =
       main: '#e0e0e0',
       dark: '#eeeeee',
       contrastText: '#000',
+    },
+  },
+  typography: {
+    button: {
+      textTransform: 'none',
     },
   },
 });
