@@ -9,13 +9,15 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "http-errors": "^1.8.0",
     "mongoose": "^5.9.24",
     "path": "^0.12.7",
     "typescript": "^3.9.6"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "start": "cd ./client && yarn build && cd ../ && ts-node-dev --respawn --transpile-only index.ts",
+    "client-build": "cd ./client && yarn build && cd ..",
+    "start": "yarn client-build && yarn dev",
     "build": "npx tsc"
   },
   "devDependencies": {
