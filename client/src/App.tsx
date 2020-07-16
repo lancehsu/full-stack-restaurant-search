@@ -11,6 +11,7 @@ import FavoriteItems from './pages/favoriteItems';
 import getMuiThemeObj from './styles/theme';
 
 import NavBar from './components/NavBar';
+import Layout from './components/Layout';
 
 const App: FC = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -29,12 +30,14 @@ const App: FC = () => {
     <BrowserRouter>
       <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
         <ThemeProvider theme={theme}>
-          <NavBar />
-          <Switch>
-            <Route path="/favorites/:category" component={FavoriteItems} />
-            <Route path="/favorites" component={Favorites} />
-            <Route path="/" component={Home} />
-          </Switch>
+          <Layout>
+            <NavBar />
+            <Switch>
+              <Route path="/favorites/:category" component={FavoriteItems} />
+              <Route path="/favorites" component={Favorites} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </Layout>
         </ThemeProvider>
       </DarkModeContext.Provider>
     </BrowserRouter>

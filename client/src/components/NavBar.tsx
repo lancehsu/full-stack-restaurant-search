@@ -11,7 +11,7 @@ const NavBar: FC = () => {
     <AppBar style={{ gridColumn: '1 / span 12' }} position="static">
       <Toolbar style={{ display: 'grid', gridTemplate: 'repeat(12, fr)' }}>
         <ButtonBase
-          style={{ gridColumn: '6 / 9' }}
+          style={{ gridColumn: '7 / 9' }}
           color="inherit"
           onClick={() => {
             history.push('/');
