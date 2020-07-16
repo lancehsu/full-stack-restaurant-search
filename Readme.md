@@ -2,8 +2,8 @@
 
 ## Full-Stack Web - Is It Open
 
-Run docker
+Run Server
 
 ```zsh
-docker-compose -f stack.yml up
+yarn start
 ```
