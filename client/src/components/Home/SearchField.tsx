@@ -1,6 +1,6 @@
 import React, { FC, Dispatch } from 'react';
 import { Search } from '@material-ui/icons';
-import { makeStyles, createStyles, Theme, fade, InputBase } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,22 +41,25 @@ interface SearchFieldProps {
 const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
   const classes = useStyles();
   return (
-    <div className={classes.search}>
+    <div>
+      <div className={classes.search}>
       <div className={classes.searchIcon}>
         <Search />
       </div>
       <InputBase
-        placeholder="Search by restaurant name or open date"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        value={searchText}
-        onChange={(e) => {
-          setSearchText(e.target.value);
-        }}
-        inputProps={{ 'aria-label': 'search' }}
-      />
+         placeholder="Search by restaurant name or open date"
+         classes={{
+           root: classes.inputRoot,
+           input: classes.inputInput,
+         }}
+         value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+          inputProps={{ 'aria-label': 'search' }}
+       />
+      </div>
+      <Button variant="contained">SearchFieldProps</Button>
     </div>
   );
 };
