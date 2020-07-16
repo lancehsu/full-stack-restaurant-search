@@ -10,9 +10,9 @@ const getMuiThemeObj = (prefersDarkMode: boolean): ThemeOptions  => ({
       contrastText: '#fff',
     },
     secondary: {
-      light: '#bdbdbd',
+      light: '#616161',
       main: '#e0e0e0',
-      dark: '#eeeeee',
+      dark: '#212121',
       contrastText: '#000',
     },
   },
