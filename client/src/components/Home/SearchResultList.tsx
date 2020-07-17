@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../store/rootReducer';
 import { Restaurant } from '../../store/restaurants/types';
 
-const SearchConsequenceList: FC = () => {
+const SearchResultList: FC = () => {
   const dispatch = useDispatch();
   const restaurants = useSelector<State, Restaurant[]>((state) => state.restaurants);
 
@@ -27,4 +27,4 @@ const SearchConsequenceList: FC = () => {
   );
 };
 
-export default SearchConsequenceList;
+export default SearchResultList;

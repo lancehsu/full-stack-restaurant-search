@@ -23,14 +23,15 @@ const getRestaurantsFailure = (error: any): GetRestaurantsFailure => {
   alert(error);
   return { type: GET_RESTAURANTS_FAILURE };
 };
+export type TimeObject = { hour: string; min: string; am: boolean };
 export const getRestaurants = (
   name: string,
   dates: string[],
-  time: { hour: number; min: number; am: boolean }
+  time: TimeObject
 ): ThunkAction<Promise<void>, State, undefined, RestaurantsAction> => (dispatch) => {
   const { hour, min, am } = time;
   const dateStr = dates.reduce((acc, curr) => `${acc},${curr}`);
-  const timeStr = (hour + (am ? 0 : 12) + min / 60).toString();
+  const timeStr = (parseInt(hour) + (am ? 0 : 12) + parseInt(min) / 60).toString();
   return axios(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)
     .then(({ data }: { data: ResponseRestaurant[] }) => {
       const restaurants: Restaurant[] = data.map((e) => {

@@ -14,22 +14,20 @@ const NavBar: FC = () => {
   const history = useHistory();
   return (
     <AppBar style={{ gridColumn: '1 / span 12' }} position="static">
-      <Toolbar style={{ display: 'grid', gridTemplate: 'repeat(12, fr)' }}>
+      <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <ButtonBase
-          style={{ gridColumn: '7 / 9' }}
           color="inherit"
           onClick={() => {
             history.push('/');
           }}
         >
-          <Typography color="inherit" variant="h5">
+          <Typography color="inherit" variant="h6">
             Restaurant Search
           </Typography>
         </ButtonBase>
 
         <div
           style={{
-            gridColumn: '12 / 13',
             display: 'flex',
             justifyContent: 'flex-end',
             alignContent: 'center',

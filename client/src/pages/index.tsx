@@ -1,16 +1,16 @@
 import { Typography, useTheme } from '@material-ui/core';
-import React, { useState, FC } from 'react';
+import React, { FC } from 'react';
+import SearchConsequenceList from '../components/Home/SearchResultList';
 import SearchField from '../components/Home/SearchField';
 
 const Home: FC = () => {
   const theme = useTheme();
-  const [searchText, setSearchText] = useState<string>('');
   return (
     <>
       <div style={{ gridColumn: '1 / span 12' }}>
-        <SearchField searchText={searchText} setSearchText={setSearchText} />
+        <SearchField />
       </div>
-
+      <SearchConsequenceList />
       <a
         style={{
           gridArea: '10 / 11 / 11 / 13',

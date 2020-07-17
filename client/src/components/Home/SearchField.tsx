@@ -1,6 +1,8 @@
-import React, { FC, Dispatch, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Search } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
+import { getRestaurants, TimeObject } from '../../store/restaurants/actions';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,18 +36,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface SearchFieldProps {
-  searchText: string;
-  setSearchText: Dispatch<string>;
-}
-const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
+interface SearchFieldProps {}
+const SearchField: FC<SearchFieldProps> = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [searchName, setSearchName] = useState<string>('');
+  const [searchDate, setSearchDate] = useState<string[]>([]);
+  const [searchTime, setSearchTime] = useState<TimeObject>({ hour: '', min: '', am: false });
   const [isSearchFieldFocus, setIsSearchFieldFocus] = useState<boolean>(false);
 
   useEffect(() => {
     const pressEnterCallback = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
-        // * Dispatch thunk action to fetch data
+        dispatch(getRestaurants(searchName, searchDate, searchTime));
       }
     };
     if (isSearchFieldFocus) {
@@ -68,12 +71,12 @@ const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
           <Search />
         </div>
         <InputBase
-          placeholder="Search by restaurant name or open date"
+          placeholder="Enter Restaurant Name..."
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput,
           }}
-          value={searchText}
+          value={searchName}
           onFocus={() => {
             setIsSearchFieldFocus(true);
           }}
@@ -81,7 +84,7 @@ const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
             setIsSearchFieldFocus(false);
           }}
           onChange={(e) => {
-            setSearchText(e.target.value);
+            setSearchName(e.target.value);
           }}
           inputProps={{ 'aria-label': 'search' }}
         />
@@ -90,7 +93,7 @@ const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
         variant="contained"
         color="primary"
         onClick={() => {
-          // * Dispatch thunk
+          dispatch(getRestaurants(searchName, searchDate, searchTime));
         }}
       >
         Search

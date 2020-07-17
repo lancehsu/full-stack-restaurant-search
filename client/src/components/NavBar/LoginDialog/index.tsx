@@ -12,7 +12,7 @@ const LoginDialog: FC = () => {
 
   return (
     <>
-      <Button color="inherit" onClick={(): void => setOpen(true)}>
+      <Button variant="outlined" color="inherit" onClick={(): void => setOpen(true)}>
         Login
       </Button>
       <Dialog open={open} onClose={(): void => setOpen(false)}>
