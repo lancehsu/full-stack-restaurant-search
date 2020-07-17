@@ -8,7 +8,7 @@ interface DateData {
   sun: { open: number; close: number };
 }
 
-const dateProcess = (date: string): DateData => {
+const strToDateProcess = (date: string): DateData => {
   let output = ({
     mon: { open: -1, close: -1 },
     tue: { open: -1, close: -1 },
@@ -70,8 +70,8 @@ const getDateAndTime = (detailArr: string[]): { [name: string]: { open: number; 
     } else {
       // * Time parsing
       if (lowerDetailArr[i] == '-') {
-        startTime = parseTime(lowerDetailArr[i - 2], lowerDetailArr[i - 1] === 'am');
-        endTime = parseTime(lowerDetailArr[i + 1], lowerDetailArr[i + 2] === 'am');
+        startTime = parseStrToTime(lowerDetailArr[i - 2], lowerDetailArr[i - 1] === 'am');
+        endTime = parseStrToTime(lowerDetailArr[i + 1], lowerDetailArr[i + 2] === 'am');
       }
     }
   }
@@ -125,7 +125,7 @@ const startEndDateProcess = (start: string, end: string): string[] => {
   return output;
 };
 
-export const parseTime = (time: string, isAm: boolean): number => {
+export const parseStrToTime = (time: string, isAm: boolean): number => {
   const timeArr = time.split(':');
 
   let parsedTime = parseInt(timeArr[0]);
@@ -144,9 +144,9 @@ export const parseTime = (time: string, isAm: boolean): number => {
 // console.log(getDateAndTime(data1));
 // console.log(getDateAndTime(data2));
 // console.log(
-//   dateProcess(
+//   strToDateProcess(
 //     'Mon 8 am - 10:15 pm / Tues, Sun 5:45 am - 6:15 am / Weds 6:45 am - 1:45 am / Thurs 1:15 pm - 12:15 pm / Fri 9:45 am - 1:45 am / Sat 8:45 am - 7:45 pm'
 //   )
 // );
 
-export default dateProcess;
+export default strToDateProcess;

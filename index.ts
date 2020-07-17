@@ -8,7 +8,7 @@ import { parseStream } from '@fast-csv/parse';
 import restaurantRouter from './api/routes/restaurantRouter';
 
 import Restaurant from './api/models/restaurants';
-import dateProcess from './api/util/dateProcess';
+import strToDateProcess from './api/util/strToDateProcess';
 import config from './config';
 
 const app = express();
@@ -42,7 +42,7 @@ connect
             }
 
             const dates = row[1];
-            const { mon, tue, wed, thu, fri, sat, sun } = dateProcess(dates);
+            const { mon, tue, wed, thu, fri, sat, sun } = strToDateProcess(dates);
 
             restaurantArr.push({
               name,
