@@ -14,19 +14,19 @@ export enum Dates {
 export const dateNumToStr = (dateNum: Dates): string => {
   switch (dateNum) {
     case Dates.sun:
-      return 'Sun';
+      return 'sun';
     case Dates.mon:
-      return 'Mon';
+      return 'mon';
     case Dates.tue:
-      return 'Tue';
+      return 'tue';
     case Dates.wed:
-      return 'Wed';
+      return 'wed';
     case Dates.thu:
-      return 'Thu';
+      return 'thu';
     case Dates.fri:
-      return 'Fri';
+      return 'fri';
     case Dates.sat:
-      return 'Sat';
+      return 'sat';
     default:
       console.error('Wrong date number');
       return '';
