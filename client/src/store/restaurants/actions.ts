@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
+import { Dates } from '../../components/Home/types';
 import dateToStrArrProcess from '../../util/dateToStrProcess';
 
 import { State } from '../rootReducer';
@@ -26,11 +27,11 @@ const getRestaurantsFailure = (error: any): GetRestaurantsFailure => {
 export type TimeObject = { hour: string; min: string; am: boolean };
 export const getRestaurants = (
   name: string,
-  dates: string[],
+  dates: Dates[],
   time: TimeObject
 ): ThunkAction<Promise<void>, State, undefined, RestaurantsAction> => (dispatch) => {
   const { hour, min, am } = time;
-  const dateStr = dates.reduce((acc, curr) => `${acc},${curr}`);
+  const dateStr: string = (dates as string[]).reduce((acc, curr) => `${acc},${curr}`);
   const timeStr = (parseInt(hour) + (am ? 0 : 12) + parseInt(min) / 60).toString();
   return axios
     .get(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)
