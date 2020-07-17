@@ -4,8 +4,8 @@ import { AppBar, Toolbar, IconButton, Button, Typography, ButtonBase } from '@ma
 import { Bookmark, Brightness2, BrightnessHigh } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { State } from '../store/rootReducer';
-import { changeDarkMode } from '../store/darkMode/actions';
+import { State } from '../../store/rootReducer';
+import { changeDarkMode } from '../../store/darkMode/actions';
 
 const NavBar: FC = () => {
   const dispatch = useDispatch();

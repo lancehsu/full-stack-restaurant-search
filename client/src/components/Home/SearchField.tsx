@@ -1,4 +1,4 @@
-import React, { FC, Dispatch } from 'react';
+import React, { FC, Dispatch, useState, useEffect } from 'react';
 import { Search } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
 
@@ -40,26 +40,53 @@ interface SearchFieldProps {
 }
 const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
   const classes = useStyles();
+  const [isSearchFieldFocus, setIsSearchFieldFocus] = useState<boolean>(false);
+
+  useEffect(() => {
+    const pressEnterCallback = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        // * Dispatch thunk action to fetch data
+      }
+    };
+    if (isSearchFieldFocus) {
+      window.addEventListener('keypress', pressEnterCallback);
+      return () => window.removeEventListener('keypress', pressEnterCallback);
+    }
+  }, [isSearchFieldFocus]);
   return (
-    <div>
+    <div style={{ margin: 'auto', width: '60%', display: 'flex', justifyContent: 'space-evenly', gap: '1.5em' }}>
       <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <Search />
-      </div>
-      <InputBase
-         placeholder="Search by restaurant name or open date"
-         classes={{
-           root: classes.inputRoot,
-           input: classes.inputInput,
-         }}
-         value={searchText}
+        <div className={classes.searchIcon}>
+          <Search />
+        </div>
+        <InputBase
+          placeholder="Search by restaurant name or open date"
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          value={searchText}
+          onFocus={() => {
+            setIsSearchFieldFocus(true);
+          }}
+          onBlur={() => {
+            setIsSearchFieldFocus(false);
+          }}
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
           inputProps={{ 'aria-label': 'search' }}
-       />
+        />
       </div>
-      <Button variant="contained">SearchFieldProps</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          // * Dispatch thunk
+        }}
+      >
+        Search
+      </Button>
     </div>
   );
 };
