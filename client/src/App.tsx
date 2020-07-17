@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, FC } from 'react';
+import React, { useEffect, useMemo, FC } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useMediaQuery } from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './styles/global.css';
-import { DarkModeContext } from './util/context';
 import Home from './pages/index';
 import Favorites from './pages/favorites';
 import FavoriteItems from './pages/favoriteItems';
@@ -12,34 +12,35 @@ import getMuiThemeObj from './styles/theme';
 
 import NavBar from './components/NavBar';
 import Layout from './components/Layout';
+import { State } from './store/rootReducer';
+import { changeDarkMode } from './store/darkMode/actions';
 
 const App: FC = () => {
+  const darkMode = useSelector<State, boolean>((state) => state.darkMode);
+  const dispatch = useDispatch();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(prefersDarkMode);
 
-  const theme = useMemo(() => createMuiTheme(getMuiThemeObj(isDarkMode)), [isDarkMode]);
+  const theme = useMemo(() => createMuiTheme(getMuiThemeObj(darkMode)), [darkMode]);
 
   useEffect(() => {
-    setIsDarkMode(prefersDarkMode);
+    dispatch(changeDarkMode(prefersDarkMode));
   }, [prefersDarkMode]);
   useEffect(() => {
-    document.body.style.backgroundColor = isDarkMode ? theme.palette.grey[900] : theme.palette.grey[50];
-  }, [isDarkMode]);
+    document.body.style.backgroundColor = darkMode ? theme.palette.grey[900] : theme.palette.grey[50];
+  }, [darkMode]);
 
   return (
     <BrowserRouter>
-      <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <NavBar />
-            <Switch>
-              <Route path="/favorites/:category" component={FavoriteItems} />
-              <Route path="/favorites" component={Favorites} />
-              <Route path="/" component={Home} />
-            </Switch>
-          </Layout>
-        </ThemeProvider>
-      </DarkModeContext.Provider>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <NavBar />
+          <Switch>
+            <Route path="/favorites/:category" component={FavoriteItems} />
+            <Route path="/favorites" component={Favorites} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </Layout>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };

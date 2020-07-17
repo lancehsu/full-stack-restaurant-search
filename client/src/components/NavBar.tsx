@@ -1,11 +1,15 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Button, Typography, ButtonBase } from '@material-ui/core';
 import { Bookmark, Brightness2, BrightnessHigh } from '@material-ui/icons';
-import { DarkModeContext } from '../util/context';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { State } from '../store/rootReducer';
+import { changeDarkMode } from '../store/darkMode/actions';
 
 const NavBar: FC = () => {
-  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
+  const dispatch = useDispatch();
+  const darkMode = useSelector<State, boolean>((state) => state.darkMode);
   const history = useHistory();
   return (
     <AppBar style={{ gridColumn: '1 / span 12' }} position="static">
@@ -26,10 +30,10 @@ const NavBar: FC = () => {
           <IconButton
             color="inherit"
             onClick={() => {
-              setIsDarkMode((prev) => !prev);
+              dispatch(changeDarkMode());
             }}
           >
-            {isDarkMode ? <BrightnessHigh /> : <Brightness2 />}
+            {darkMode ? <BrightnessHigh /> : <Brightness2 />}
           </IconButton>
           <IconButton
             color="inherit"

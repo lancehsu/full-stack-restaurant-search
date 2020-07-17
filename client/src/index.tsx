@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { CircularProgress } from '@material-ui/core';
 
 import configureStore from './store';
 import App from './App';
@@ -13,7 +14,7 @@ const { store, persistor } = configureStore(initialState);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={<div>Loading..</div>} persistor={persistor}>
+      <PersistGate loading={<CircularProgress />} persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>
