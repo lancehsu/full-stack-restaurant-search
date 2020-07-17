@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Button, Typography, ButtonBase } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, ButtonBase } from '@material-ui/core';
 import { Bookmark, Brightness2, BrightnessHigh } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { State } from '../../store/rootReducer';
 import { changeDarkMode } from '../../store/darkMode/actions';
+import LoginDialog from './LoginDialog';
 
 const NavBar: FC = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,14 @@ const NavBar: FC = () => {
           </Typography>
         </ButtonBase>
 
-        <div style={{ gridColumn: '12 / 13', display: 'flex', justifyContent: 'flex-end' }}>
+        <div
+          style={{
+            gridColumn: '12 / 13',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignContent: 'center',
+          }}
+        >
           <IconButton
             color="inherit"
             onClick={() => {
@@ -43,7 +51,7 @@ const NavBar: FC = () => {
           >
             <Bookmark />
           </IconButton>
-          <Button color="inherit">Login</Button>
+          <LoginDialog />
         </div>
       </Toolbar>
     </AppBar>
