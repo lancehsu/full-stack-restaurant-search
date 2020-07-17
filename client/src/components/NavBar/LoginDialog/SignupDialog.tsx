@@ -4,20 +4,22 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import { DialogTitle } from '@material-ui/core';
 
-const LoginDialog: FC = () => {
+const SignupDialog: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
-      <Button color="default" onClick={(): void => setOpen(true)}>
-        Login
+      <Button color="inherit" style={{ margin: '0.5em 0.2em' }} onClick={(): void => setOpen(true)}>
+        Register
       </Button>
       <Dialog open={open} onClose={(): void => setOpen(false)}>
+        <DialogTitle>Register</DialogTitle>
         <DialogContent>
-          <TextField autoFocus margin="dense" label="Email" type="email" fullWidth />
-          <TextField margin="dense" label="Password" type="password" fullWidth />
-          <Button style={{ margin: '0.5em 0.2em' }}>Register</Button>
+          <TextField required autoFocus margin="dense" label="Email" type="email" fullWidth />
+          <TextField required margin="dense" label="Password" type="password" fullWidth />
+          <TextField margin="dense" label="Name" type="name" fullWidth />
         </DialogContent>
         <DialogActions>
           <Button
@@ -36,7 +38,7 @@ const LoginDialog: FC = () => {
             }}
             color="primary"
           >
-            Login
+            Signup
           </Button>
         </DialogActions>
       </Dialog>
@@ -44,4 +46,4 @@ const LoginDialog: FC = () => {
   );
 };
 
-export default LoginDialog;
+export default SignupDialog;

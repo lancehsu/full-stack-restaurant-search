@@ -1,6 +1,6 @@
 import { ThemeOptions } from '@material-ui/core';
 
-const getMuiThemeObj = (prefersDarkMode: boolean): ThemeOptions  => ({
+const getMuiThemeObj = (prefersDarkMode: boolean): ThemeOptions => ({
   palette: {
     type: prefersDarkMode ? 'dark' : 'light',
     primary: {
@@ -14,6 +14,9 @@ const getMuiThemeObj = (prefersDarkMode: boolean): ThemeOptions  => ({
       main: '#e0e0e0',
       dark: '#212121',
       contrastText: '#000',
+    },
+    common: {
+      white: '#bdbdbd',
     },
   },
   typography: {

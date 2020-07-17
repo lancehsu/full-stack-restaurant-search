@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, ButtonBase } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, ButtonBase, Tooltip } from '@material-ui/core';
 import { Bookmark, Brightness2, BrightnessHigh } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -35,22 +35,26 @@ const NavBar: FC = () => {
             alignContent: 'center',
           }}
         >
-          <IconButton
-            color="inherit"
-            onClick={() => {
-              dispatch(changeDarkMode());
-            }}
-          >
-            {darkMode ? <BrightnessHigh /> : <Brightness2 />}
-          </IconButton>
-          <IconButton
-            color="inherit"
-            onClick={() => {
-              history.push('/favorites');
-            }}
-          >
-            <Bookmark />
-          </IconButton>
+          <Tooltip title={darkMode ? 'Light' : 'Dark'}>
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                dispatch(changeDarkMode());
+              }}
+            >
+              {darkMode ? <BrightnessHigh /> : <Brightness2 />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Favorites">
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                history.push('/favorites');
+              }}
+            >
+              <Bookmark />
+            </IconButton>
+          </Tooltip>
           <LoginDialog />
         </div>
       </Toolbar>

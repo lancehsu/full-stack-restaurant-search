@@ -7,9 +7,9 @@ const useStyles = makeStyles((theme: Theme) =>
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: fade(theme.palette.common.white, 0.35),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.white, 0.55),
       },
       width: '100%',
     },
@@ -54,7 +54,15 @@ const SearchField: FC<SearchFieldProps> = ({ searchText, setSearchText }) => {
     }
   }, [isSearchFieldFocus]);
   return (
-    <div style={{ margin: 'auto', width: '60%', display: 'flex', justifyContent: 'space-evenly', gap: '1.5em' }}>
+    <div
+      style={{
+        margin: 'auto',
+        width: '60%',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        gap: '1.5em',
+      }}
+    >
       <div className={classes.search}>
         <div className={classes.searchIcon}>
           <Search />
