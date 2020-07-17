@@ -32,7 +32,8 @@ export const getRestaurants = (
   const { hour, min, am } = time;
   const dateStr = dates.reduce((acc, curr) => `${acc},${curr}`);
   const timeStr = (parseInt(hour) + (am ? 0 : 12) + parseInt(min) / 60).toString();
-  return axios(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)
+  return axios
+    .get(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)
     .then(({ data }: { data: ResponseRestaurant[] }) => {
       const restaurants: Restaurant[] = data.map((e) => {
         return { ...e, openInfo: dateToStrArrProcess(e) };
