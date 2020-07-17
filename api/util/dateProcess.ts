@@ -1,21 +1,22 @@
 interface DateData {
-  mon: [number, number];
-  tue: [number, number];
-  wed: [number, number];
-  thu: [number, number];
-  fri: [number, number];
-  sat: [number, number];
-  sun: [number, number];
+  mon: { open: number; close: number };
+  tue: { open: number; close: number };
+  wed: { open: number; close: number };
+  thu: { open: number; close: number };
+  fri: { open: number; close: number };
+  sat: { open: number; close: number };
+  sun: { open: number; close: number };
 }
+
 const dateProcess = (date: string): DateData => {
   let output = ({
-    mon: [],
-    tue: [],
-    wed: [],
-    thu: [],
-    fri: [],
-    sat: [],
-    sun: [],
+    mon: { open: -1, close: -1 },
+    tue: { open: -1, close: -1 },
+    wed: { open: -1, close: -1 },
+    thu: { open: -1, close: -1 },
+    fri: { open: -1, close: -1 },
+    sat: { open: -1, close: -1 },
+    sun: { open: -1, close: -1 },
   } as unknown) as DateData;
 
   const dateArr = date.split('/').map((e) => e.trim());
@@ -26,7 +27,7 @@ const dateProcess = (date: string): DateData => {
   return output;
 };
 
-const getDateAndTime = (detailArr: string[]): { [name: string]: [number, number] } => {
+const getDateAndTime = (detailArr: string[]): { [name: string]: { open: number; close: number } } => {
   let isDate = true;
   let startDate = '';
   let dates: string[] = [];
@@ -75,7 +76,7 @@ const getDateAndTime = (detailArr: string[]): { [name: string]: [number, number]
     }
   }
   dates.forEach((date) => {
-    output[date] = [startTime, endTime];
+    output[date] = { open: startTime, close: endTime };
   });
   return output;
 };
@@ -124,10 +125,11 @@ const startEndDateProcess = (start: string, end: string): string[] => {
   return output;
 };
 
-const parseTime = (time: string, isAm: boolean): number => {
+export const parseTime = (time: string, isAm: boolean): number => {
   const timeArr = time.split(':');
 
   let parsedTime = parseInt(timeArr[0]);
+  if (parsedTime === 12) parsedTime = 0;
   if (timeArr.length > 1) {
     parsedTime += parseInt(timeArr[1]) / 60;
   }

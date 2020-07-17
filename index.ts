@@ -5,6 +5,8 @@ import createError from 'http-errors';
 import * as fs from 'fs';
 import { parseStream } from '@fast-csv/parse';
 
+import restaurantRouter from './api/routes/restaurantRouter';
+
 import Restaurant from './api/models/restaurants';
 import dateProcess from './api/util/dateProcess';
 import config from './config';
@@ -15,7 +17,7 @@ const { MONGODB_URL, PORT } = config;
 const connect = mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
-const initDatabase = true;
+const initDatabase = false;
 connect
   .then(async (db) => {
     console.info('Connected correctly to "Restaurant Search" DB');
@@ -71,9 +73,7 @@ connect
 
 app.use(express.static(path.resolve('./') + '/build/frontend'));
 
-app.use('/api', (req: Request, res: Response): void => {
-  res.send('You have reached the API!');
-});
+app.use('/api/restaurants', restaurantRouter);
 
 app.get('*', (req: Request, res: Response): void => {
   res.sendFile(path.resolve('./') + '/build/frontend/index.html');
@@ -90,5 +90,8 @@ app.use((err, req, res, next) => {
   res.locals.error = err;
   // render the error page
   res.status(err.status ?? 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err,
+  });
 });
