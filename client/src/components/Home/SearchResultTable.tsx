@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { State } from '../../store/rootReducer';
 import { Restaurant } from '../../store/restaurants/types';
-import { parseTimeToStr } from '../../util/dateToStrProcess';
+import { parseTimeToStr } from '../../util/dateOperations';
 import { IconButton } from '@material-ui/core';
 import { Bookmark } from '@material-ui/icons';
 

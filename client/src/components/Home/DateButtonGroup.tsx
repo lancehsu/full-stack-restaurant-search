@@ -1,6 +1,6 @@
 import React, { memo, FC, Dispatch, SetStateAction } from 'react';
 import { Button, useTheme } from '@material-ui/core';
-import { DateOptions, Dates, dateNumToStr } from './types';
+import { DateOptions, Dates, dateNumToStr } from '../../util/dateOperations';
 
 interface DateButtonGroupProps {
   dateOptions: DateOptions;

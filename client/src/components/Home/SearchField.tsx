@@ -3,7 +3,7 @@ import { Search } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
 import { getRestaurants, TimeObject } from '../../store/restaurants/actions';
 import { useDispatch } from 'react-redux';
-import { DateOptions, Dates } from './types';
+import { DateOptions, Dates } from '../../util/dateOperations';
 import DateButtonGroup from './DateButtonGroup';
 import TimeInput from './TimeInput';
 

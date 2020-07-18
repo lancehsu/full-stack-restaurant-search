@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
-import { Dates } from '../../components/Home/types';
-import dateToStrArrProcess from '../../util/dateToStrProcess';
+import { Dates } from '../../util/dateOperations';
 
 import { State } from '../rootReducer';
 import {
