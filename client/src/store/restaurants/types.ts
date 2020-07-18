@@ -2,24 +2,26 @@ export type WorkTime = { open: number; close: number };
 export type Restaurant = {
   name: string;
   openInfo: string[];
-  mon: WorkTime;
-  tue: WorkTime;
-  wed: WorkTime;
-  thu: WorkTime;
-  fri: WorkTime;
-  sat: WorkTime;
-  sun: WorkTime;
+  0: WorkTime;
+  1: WorkTime;
+  2: WorkTime;
+  3: WorkTime;
+  4: WorkTime;
+  5: WorkTime;
+  6: WorkTime;
 };
 
 export type ResponseRestaurant = {
   name: string;
-  mon: WorkTime;
-  tue: WorkTime;
-  wed: WorkTime;
-  thu: WorkTime;
-  fri: WorkTime;
-  sat: WorkTime;
-  sun: WorkTime;
+  _id: string;
+  __v: number;
+  0: WorkTime;
+  1: WorkTime;
+  2: WorkTime;
+  3: WorkTime;
+  4: WorkTime;
+  5: WorkTime;
+  6: WorkTime;
 };
 
 export const GET_RESTAURANTS_SUCCESS = 'GET_RESTAURANTS_SUCCESS';

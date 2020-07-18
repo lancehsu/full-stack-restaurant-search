@@ -6,13 +6,13 @@ const restaurantSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  mon: { open: Number, close: Number },
-  tue: { open: Number, close: Number },
-  wed: { open: Number, close: Number },
-  thu: { open: Number, close: Number },
-  fri: { open: Number, close: Number },
-  sat: { open: Number, close: Number },
-  sun: { open: Number, close: Number },
+  0: { open: Number, close: Number },
+  1: { open: Number, close: Number },
+  2: { open: Number, close: Number },
+  3: { open: Number, close: Number },
+  4: { open: Number, close: Number },
+  5: { open: Number, close: Number },
+  6: { open: Number, close: Number },
 });
 
 const Restaurants = mongoose.model('Restaurant', restaurantSchema);

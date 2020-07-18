@@ -46,13 +46,13 @@ connect
 
             restaurantArr.push({
               name,
-              mon,
-              tue,
-              wed,
-              thu,
-              fri,
-              sat,
-              sun,
+              0: sun,
+              1: mon,
+              2: tue,
+              3: wed,
+              4: thu,
+              5: fri,
+              6: sat,
             });
           })
           .on('error', (error) => console.error(error))

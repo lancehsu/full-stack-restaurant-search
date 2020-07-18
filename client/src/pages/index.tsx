@@ -1,6 +1,6 @@
 import { Typography, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
-import SearchConsequenceList from '../components/Home/SearchResultList';
+import SearchResultList from '../components/Home/SearchResultList';
 import SearchField from '../components/Home/SearchField';
 
 const Home: FC = () => {
@@ -10,7 +10,9 @@ const Home: FC = () => {
       <div style={{ gridColumn: '1 / span 12' }}>
         <SearchField />
       </div>
-      <SearchConsequenceList />
+      <div style={{ gridColumn: '3 / 11' }}>
+        <SearchResultList />
+      </div>
       <a
         style={{
           gridArea: '10 / 11 / 11 / 13',

@@ -9,13 +9,13 @@ const SearchResultList: FC = () => {
   const restaurants = useSelector<State, Restaurant[]>((state) => state.restaurants);
 
   return (
-    <List style={{ width: '100%' }}>
+    <List style={{ width: '100%', border: 'solid' }}>
       {restaurants.map((restaurant: Restaurant, i) => {
         return (
           <ListItem key={`${restaurant.name[0]}${i}`} button>
             <ListItemText
               primary={restaurant.name}
-              secondary={restaurant.openInfo.reduce((acc, curr) => `${acc}, ${curr}`)}
+              secondary={restaurant.openInfo.reduce((acc, curr) => `${acc}\n${curr}`)}
               onClick={() => {
                 // * post to favorites (category)
               }}

@@ -1,6 +1,5 @@
 import express from 'express';
 import Restaurants from '../models/restaurants';
-import { dateNumToStr, Dates } from '../../client/src/components/Home/types';
 import cors from './cors';
 
 const restaurantRouter = express.Router();
@@ -17,13 +16,14 @@ restaurantRouter.route('/').get(cors.cors, async (req, res, next) => {
        * if time.length === 0
        * Just check if that date is available
        */
-      dateFilter[`${dateNumToStr(e as Dates)}.open`] = {
+      dateFilter[`${e}.open`] = {
         $lte: time.length > 0 ? parseInt(time as string) : 99,
       };
+
       // * If that date is not available, `${date}.close` should be -1
       dateFilter[`${e}.close`] = { $gt: time.length > 0 ? parseInt(time as string) : 0 };
     });
-
+    console.log(dateFilter);
     const restaurants = await Restaurants.find({
       name: nameReg,
       ...dateFilter,

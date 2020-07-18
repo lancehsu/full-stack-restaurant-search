@@ -32,7 +32,11 @@ export const getRestaurants = (
 ): ThunkAction<Promise<void>, State, undefined, RestaurantsAction> => (dispatch) => {
   const { hour, min, am } = time;
   const dateStr: string = (dates as string[]).reduce((acc, curr) => `${acc},${curr}`);
-  const timeStr = (parseInt(hour) + (am ? 0 : 12) + parseInt(min) / 60).toString();
+  const timeStr =
+    hour.length === 0
+      ? ''
+      : (parseInt(hour) + (am ? 0 : 12) + (min.length === 0 ? 0 : parseInt(min)) / 60).toString();
+  console.log(timeStr);
   return axios
     .get(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)
     .then(({ data }: { data: ResponseRestaurant[] }) => {
