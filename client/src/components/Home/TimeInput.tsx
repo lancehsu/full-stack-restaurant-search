@@ -12,7 +12,7 @@ const TimeInput: FC<TimeInputProps> = ({ setSearchTime }) => {
 
   useEffect(() => {
     setSearchTime({ hour, min, am });
-  }, [hour, min, am]);
+  }, [hour, min, am, setSearchTime]);
   return (
     <div
       style={{

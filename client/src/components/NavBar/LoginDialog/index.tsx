@@ -6,8 +6,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import SignupDialog from './SignupDialog';
 import { DialogTitle } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../store/user/actions';
 
 const LoginDialog: FC = () => {
+  const dispatch = useDispatch();
+  const [account, setAccount] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -18,8 +23,27 @@ const LoginDialog: FC = () => {
       <Dialog open={open} onClose={(): void => setOpen(false)}>
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
-          <TextField autoFocus margin="dense" label="Account" type="string" fullWidth />
-          <TextField margin="dense" label="Password" type="password" fullWidth />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Account"
+            type="string"
+            fullWidth
+            value={account}
+            onChange={(e) => {
+              setAccount(e.target.value);
+            }}
+          />
+          <TextField
+            margin="dense"
+            label="Password"
+            type="password"
+            fullWidth
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
           <SignupDialog />
         </DialogContent>
         <DialogActions>
@@ -35,6 +59,7 @@ const LoginDialog: FC = () => {
           <Button
             variant="contained"
             onClick={(): void => {
+              dispatch(login(account, password));
               setOpen(false);
             }}
             color="primary"

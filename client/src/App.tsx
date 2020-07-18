@@ -25,12 +25,12 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(changeDarkMode(prefersDarkMode));
-  }, [prefersDarkMode]);
+  }, [prefersDarkMode, dispatch]);
   useEffect(() => {
     document.body.style.backgroundColor = darkMode
       ? theme.palette.grey[900]
       : theme.palette.grey[50];
-  }, [darkMode]);
+  }, [darkMode, theme.palette.grey]);
 
   return (
     <BrowserRouter>

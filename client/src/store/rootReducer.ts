@@ -9,8 +9,11 @@ import favoritesReducer from './favorites/reducer';
 import { Favorite } from './favorites/types';
 import { Message } from './Message/types';
 import messageReducer from './Message/reducer';
+import userReducer from './user/reducer';
+import { User } from './user/types';
 
 export interface State {
+  user: User;
   darkMode: boolean;
   message: Message;
   dialogIsOpen: boolean;
@@ -19,6 +22,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  user: null,
   darkMode: false,
   dialogIsOpen: false,
   restaurants: [],
@@ -27,6 +31,7 @@ export const initialState: State = {
 };
 
 const rootReducer = combineReducers({
+  user: userReducer,
   darkMode: darkModeReducer,
   message: messageReducer,
   dialogIsOpen: dialogIsOpenReducer,

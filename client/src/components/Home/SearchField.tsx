@@ -81,7 +81,7 @@ const SearchField: FC = () => {
 
   useEffect(() => {
     setSearchDateOption((prev) => ({ ...prev, [date]: true }));
-  }, [setSearchDateOption]);
+  }, [date, setSearchDateOption]);
 
   useEffect(() => {
     const pressEnterCallback = (e: KeyboardEvent) => {
@@ -89,11 +89,12 @@ const SearchField: FC = () => {
         dispatch(getRestaurants(searchName, dates, searchTime));
       }
     };
+
     if (isSearchFieldFocus) {
       window.addEventListener('keypress', pressEnterCallback);
       return () => window.removeEventListener('keypress', pressEnterCallback);
     }
-  }, [isSearchFieldFocus]);
+  }, [isSearchFieldFocus, dates, searchName, searchTime, dispatch]);
   return (
     <div className={classes.container}>
       <div className={classes.searchContainer}>

@@ -61,7 +61,7 @@ userRouter.post('/login', cors.corsWithOptions, (req, res, next) => {
       const jwtToken = authenticate.getToken({ id: req.user.id });
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.json({ success: true, token: jwtToken, status: 'Login success' });
+      res.json({ success: true, name: user.name, token: jwtToken, status: 'Login success' });
     });
   })(req, res, next);
 });
