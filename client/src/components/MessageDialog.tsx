@@ -1,0 +1,57 @@
+import React, { FC } from 'react';
+import Button from '@material-ui/core/Button';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import { Typography } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { State } from '../store/rootReducer';
+import { Message } from '../store/Message/types';
+import { closeMessage } from '../store/Message/actions';
+
+const MessageDialog: FC = () => {
+  const dispatch = useDispatch();
+  const message = useSelector<State, Message>((state) => state.message);
+
+  return (
+    <Dialog
+      open={message.open}
+      onClose={(): void => {
+        dispatch(closeMessage());
+      }}
+    >
+      <DialogContent>
+        <Typography variant="body1">{message.message}</Typography>
+      </DialogContent>
+      <DialogActions>
+        {message.confirmFunction !== null && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={(): void => {
+              dispatch(closeMessage());
+            }}
+          >
+            Cancel
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(): void => {
+            if (message.confirmFunction !== null) {
+              message.confirmFunction();
+            }
+            dispatch(closeMessage());
+          }}
+        >
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+export default MessageDialog;

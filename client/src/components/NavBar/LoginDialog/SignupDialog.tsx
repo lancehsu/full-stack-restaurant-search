@@ -5,8 +5,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { DialogTitle } from '@material-ui/core';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { showMessage } from '../../../store/Message/actions';
 
 const SignupDialog: FC = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -38,9 +42,9 @@ const SignupDialog: FC = () => {
             label="Password"
             type="password"
             fullWidth
-            value={username}
+            value={password}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setPassword(e.target.value);
             }}
           />
           <TextField
@@ -48,28 +52,36 @@ const SignupDialog: FC = () => {
             label="Name"
             type="name"
             fullWidth
-            value={username}
+            value={name}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setName(e.target.value);
             }}
           />
         </DialogContent>
         <DialogActions>
           <Button
             variant="contained"
+            color="secondary"
             onClick={(): void => {
               setOpen(false);
             }}
-            color="secondary"
           >
             Cancel
           </Button>
           <Button
             variant="contained"
+            color="primary"
             onClick={(): void => {
+              axios
+                .post('/api/user/signup', { name, username, password })
+                .then(({ data }) => {
+                  if (data.success) dispatch(showMessage(data.status));
+                })
+                .catch((err) => {
+                  dispatch(showMessage(err));
+                });
               setOpen(false);
             }}
-            color="primary"
           >
             Signup
           </Button>

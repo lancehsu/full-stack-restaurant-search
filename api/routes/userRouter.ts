@@ -21,10 +21,9 @@ userRouter.get('/me', cors.corsWithOptions, authenticate.verifyUser, async (req,
 userRouter.post('/signup', cors.corsWithOptions, async (req, res) => {
   try {
     const user = await (User as any).register(
-      new User({ name: req.body.name, username: req.body.username }),
+      new User({ name: req.body.name || '', username: req.body.username }),
       req.body.password
     );
-    user.name = req.body.name || '';
     await user.save();
     await passport.authenticate('local');
     res.statusCode = 200;

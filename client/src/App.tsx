@@ -14,6 +14,7 @@ import NavBar from './components/NavBar';
 import Layout from './components/Layout';
 import { State } from './store/rootReducer';
 import { changeDarkMode } from './store/darkMode/actions';
+import MessageDialog from './components/MessageDialog';
 
 const App: FC = () => {
   const darkMode = useSelector<State, boolean>((state) => state.darkMode);
@@ -26,7 +27,9 @@ const App: FC = () => {
     dispatch(changeDarkMode(prefersDarkMode));
   }, [prefersDarkMode]);
   useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? theme.palette.grey[900] : theme.palette.grey[50];
+    document.body.style.backgroundColor = darkMode
+      ? theme.palette.grey[900]
+      : theme.palette.grey[50];
   }, [darkMode]);
 
   return (
@@ -34,6 +37,7 @@ const App: FC = () => {
       <ThemeProvider theme={theme}>
         <Layout>
           <NavBar />
+          <MessageDialog />
           <Switch>
             <Route path="/favorites/:category" component={FavoriteItems} />
             <Route path="/favorites" component={Favorites} />
