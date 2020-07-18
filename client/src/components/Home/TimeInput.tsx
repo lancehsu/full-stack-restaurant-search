@@ -14,7 +14,14 @@ const TimeInput: FC<TimeInputProps> = ({ setSearchTime }) => {
     setSearchTime({ hour, min, am });
   }, [hour, min, am]);
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.3em' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        width: '30%',
+        justifyContent: 'space-evenly',
+      }}
+    >
       <Input
         placeholder="00"
         type="number"

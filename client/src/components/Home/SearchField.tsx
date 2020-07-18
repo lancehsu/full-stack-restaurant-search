@@ -9,6 +9,25 @@ import TimeInput from './TimeInput';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      gridArea: '3 / 1 / 5 / 13',
+      display: 'flex',
+      flexFlow: 'column',
+      alignItems: 'center',
+      width: '100%',
+    },
+    searchContainer: {
+      padding: '1em',
+      width: '80%',
+      display: 'flex',
+      justifyContent: 'space-evenly',
+    },
+    dateSelectorContainer: {
+      width: '80%',
+      padding: '1em',
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
@@ -16,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.55),
       },
-      width: '100%',
+      width: '80%',
     },
     searchIcon: {
       padding: theme.spacing(0, 1),
@@ -76,23 +95,8 @@ const SearchField: FC = () => {
     }
   }, [isSearchFieldFocus]);
   return (
-    <div
-      style={{
-        gridArea: '3 / 1 / span 2 / span 12',
-        margin: 'auto',
-        width: '60%',
-        display: 'flex',
-        flexFlow: 'column',
-        gap: '2em',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          gap: '1.5em',
-        }}
-      >
+    <div className={classes.container}>
+      <div className={classes.searchContainer}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <Search />
@@ -126,14 +130,7 @@ const SearchField: FC = () => {
           Search
         </Button>
       </div>
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-around',
-          gap: '0.1em',
-        }}
-      >
+      <div className={classes.dateSelectorContainer}>
         <DateButtonGroup dateOptions={searchDateOption} setDateOptions={setSearchDateOption} />
         <TimeInput setSearchTime={setSearchTime} />
       </div>

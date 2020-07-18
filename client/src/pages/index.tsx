@@ -7,9 +7,8 @@ const Home: FC = () => {
   const theme = useTheme();
   return (
     <>
-        <SearchField />
+      <SearchField />
       <SearchResultList />
-
       <a
         style={{
           gridArea: '12 / 12 / 13 / 13',
@@ -19,7 +18,7 @@ const Home: FC = () => {
         }}
         href="https://dryicons.com/free-icons/restaurant"
       >
-        <Typography variant="body2" >Icon by Dryicons</Typography>
+        <Typography variant="body2">Icon by Dryicons</Typography>
       </a>
     </>
   );
