@@ -34,7 +34,11 @@ export const getRestaurants = (
   const timeStr =
     hour.length === 0
       ? ''
-      : (parseInt(hour) + (am ? 0 : 12) + (min.length === 0 ? 0 : parseInt(min)) / 60).toString();
+      : (
+          parseInt(hour) +
+          (am || parseInt(hour) === 12 ? 0 : 12) +
+          (min.length === 0 ? 0 : parseInt(min)) / 60
+        ).toString();
 
   return axios
     .get(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)

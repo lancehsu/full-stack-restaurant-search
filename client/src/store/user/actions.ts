@@ -36,7 +36,6 @@ export const login = (
   return axios
     .post('/api/user/login', { username: account, password })
     .then(({ data }) => {
-      console.log(data);
       if (data.success) {
         dispatch(showMessage(data.status));
         dispatch(loginSuccess({ account, name: data.name, token: data.token }));

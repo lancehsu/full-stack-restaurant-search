@@ -8,7 +8,7 @@ const userReducer = (state = initialState.user, action: UserAction): User => {
     case LOGIN_FAILURE:
       return state;
     case LOGOUT:
-      return state;
+      return initialState.user;
     default:
       return state;
   }
