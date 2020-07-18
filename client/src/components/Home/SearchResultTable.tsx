@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,12 +13,26 @@ import { Restaurant } from '../../store/restaurants/types';
 import { parseTimeToStr } from '../../util/dateOperations';
 import { IconButton } from '@material-ui/core';
 import { Bookmark } from '@material-ui/icons';
+import { User } from '../../store/user/types';
+import { getFavorites, putFavorite } from '../../store/favorites/actions';
+import { Favorite } from '../../store/favorites/types';
 
 const tableHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const SearchResultTable: FC = () => {
   const dispatch = useDispatch();
-  const restaurants = useSelector<State, Restaurant[]>((state) => state.restaurants);
+  const { restaurants, user, favorites } = useSelector<
+    State,
+    { restaurants: Restaurant[]; user: User; favorites: Favorite[] }
+  >((state) => ({
+    favorites: state.favorites,
+    restaurants: state.restaurants,
+    user: state.user,
+  }));
+
+  useEffect(() => {
+    dispatch(getFavorites());
+  }, [dispatch]);
 
   return (
     <TableContainer style={{ gridArea: '6 / 1 / 12 / 13', width: '90%' }} component={Paper}>
@@ -60,7 +74,13 @@ const SearchResultTable: FC = () => {
                 {parseTimeToStr(row[6].open, row[6].close)}
               </TableCell>
               <TableCell>
-                <IconButton color="inherit">
+                <IconButton
+                  style={{ display: user === null ? 'none' : undefined }}
+                  color="inherit"
+                  onClick={() => {
+                    // dispatch(putFavorite())
+                  }}
+                >
                   <Bookmark />
                 </IconButton>
               </TableCell>

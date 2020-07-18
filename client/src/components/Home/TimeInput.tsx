@@ -28,7 +28,16 @@ const TimeInput: FC<TimeInputProps> = ({ setSearchTime }) => {
         style={{ width: '3em' }}
         value={hour}
         onChange={(e) => {
-          setHour(e.target.value);
+          const { value } = e.target;
+          if (value.length === 0) {
+            setHour('');
+          } else if (parseInt(value) < 1) {
+            setHour('12');
+          } else {
+            const numValue = parseInt(value);
+            let hr = numValue % 13;
+            setHour((hr > 0 ? hr : 1).toString());
+          }
         }}
       />
       <Typography variant="h5" color="primary">
@@ -40,7 +49,16 @@ const TimeInput: FC<TimeInputProps> = ({ setSearchTime }) => {
         style={{ width: '3em' }}
         value={min}
         onChange={(e) => {
-          setMin(e.target.value);
+          const { value } = e.target;
+          if (value.length === 0) {
+            setMin('');
+          } else if (parseInt(value) < 0) {
+            setMin('60');
+          } else {
+            const numValue = parseInt(value);
+            let min = numValue % 60;
+            setMin(min.toString());
+          }
         }}
       />
       <Button

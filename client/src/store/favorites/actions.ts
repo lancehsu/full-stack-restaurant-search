@@ -45,7 +45,7 @@ const requestFavoritesFailure = (error: any): RequestFavoritesFailure => {
 };
 
 export const getFavorites = (
-  name?: string
+  name: string = ''
 ): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch) => {
   return axios
     .get(`/api/favorites/${name}`)
