@@ -11,7 +11,7 @@ import { login } from '../../../store/user/actions';
 
 const LoginDialog: FC = () => {
   const dispatch = useDispatch();
-  const [account, setAccount] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
 
@@ -26,12 +26,12 @@ const LoginDialog: FC = () => {
           <TextField
             autoFocus
             margin="dense"
-            label="Account"
-            type="string"
+            label="Email"
+            type="email"
             fullWidth
-            value={account}
+            value={email}
             onChange={(e) => {
-              setAccount(e.target.value);
+              setEmail(e.target.value);
             }}
           />
           <TextField
@@ -59,7 +59,7 @@ const LoginDialog: FC = () => {
           <Button
             variant="contained"
             onClick={(): void => {
-              dispatch(login(account, password));
+              dispatch(login(email, password));
               setOpen(false);
             }}
             color="primary"

@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  favorite: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Favorite',
+  },
 });
 
 UserSchema.plugin(passportLocalMongoose);

@@ -29,16 +29,15 @@ const loginFailure = (error: any): LoginFailure => {
 export const logout = (): Logout => ({ type: LOGOUT });
 
 export const login = (
-  account: string,
+  email: string,
   password: string
 ): ThunkAction<Promise<void>, State, undefined, UserAction | ShowMessage> => (dispatch) => {
-  console.log(account, password);
   return axios
-    .post('/api/user/login', { username: account, password })
+    .post('/api/user/login', { username: email, password })
     .then(({ data }) => {
       if (data.success) {
         dispatch(showMessage(data.status));
-        dispatch(loginSuccess({ account, name: data.name, token: data.token }));
+        dispatch(loginSuccess({ email, name: data.name, token: data.token }));
       }
     })
     .catch((err) => {

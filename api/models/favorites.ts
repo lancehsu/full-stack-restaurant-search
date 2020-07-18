@@ -1,26 +1,21 @@
 import mongoose from 'mongoose';
 
-const categorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
+const favoriteSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    coAuthor: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
   },
-  restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
-});
-
-const favoriteSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  list: [categorySchema],
-});
+  { timestamps: true }
+);
 
 const Favorites = mongoose.model('Favorite', favoriteSchema);
 

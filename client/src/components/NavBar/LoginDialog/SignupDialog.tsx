@@ -28,8 +28,8 @@ const SignupDialog: FC = () => {
             required
             autoFocus
             margin="dense"
-            label="Account"
-            type="string"
+            label="Email"
+            type="email"
             fullWidth
             value={username}
             onChange={(e) => {

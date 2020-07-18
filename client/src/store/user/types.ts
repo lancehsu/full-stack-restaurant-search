@@ -8,4 +8,4 @@ export type Logout = { type: typeof LOGOUT };
 
 export type UserAction = LoginSuccess | LoginFailure | Logout;
 
-export type User = null | { name: string; account: string; token: string };
+export type User = null | { name: string; email: string; token: string };

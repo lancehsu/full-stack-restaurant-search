@@ -13,6 +13,7 @@ const restaurantSchema = new mongoose.Schema({
   4: { open: Number, close: Number },
   5: { open: Number, close: Number },
   6: { open: Number, close: Number },
+  favorite: { type: mongoose.Schema.Types.ObjectId, ref: 'Favorite' },
 });
 
 const Restaurants = mongoose.model('Restaurant', restaurantSchema);
