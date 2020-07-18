@@ -13,7 +13,7 @@ const NavBar: FC = () => {
   const darkMode = useSelector<State, boolean>((state) => state.darkMode);
   const history = useHistory();
   return (
-    <AppBar style={{ gridColumn: '1 / span 12' }} position="static">
+    <AppBar style={{ gridArea: '1 / 1 / span 2 / span 12' }} position="static">
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <ButtonBase
           color="inherit"

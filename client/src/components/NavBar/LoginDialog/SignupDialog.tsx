@@ -17,7 +17,7 @@ const SignupDialog: FC = () => {
       <Dialog open={open} onClose={(): void => setOpen(false)}>
         <DialogTitle>Register</DialogTitle>
         <DialogContent>
-          <TextField required autoFocus margin="dense" label="Email" type="email" fullWidth />
+          <TextField required autoFocus margin="dense" label="Account" type="string" fullWidth />
           <TextField required margin="dense" label="Password" type="password" fullWidth />
           <TextField margin="dense" label="Name" type="name" fullWidth />
         </DialogContent>

@@ -4,10 +4,11 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      height: '100vh',
       width: '100vw',
+      height: '100vh',
       display: 'grid',
-      grid: 'repeat(10, 1fr) / repeat(12, 1fr)',
+      gridTemplateAreas: 'repeat(12, 1fr) / repeat(12, 1fr)',
+      justifyItems: 'center',
       gridGap: theme.spacing(6),
     },
   })

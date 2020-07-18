@@ -30,7 +30,7 @@ const DateButtonGroup: FC<DateButtonGroupProps> = ({ dateOptions, setDateOptions
               }));
             }}
           >
-            {dateNumToStr(dateNum)}
+            {dateNumToStr(dateNum).replace(/^\w/, (c: string): string => c.toUpperCase())}
           </Button>
         );
       })}

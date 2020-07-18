@@ -78,6 +78,7 @@ const SearchField: FC = () => {
   return (
     <div
       style={{
+        gridArea: '3 / 1 / span 2 / span 12',
         margin: 'auto',
         width: '60%',
         display: 'flex',

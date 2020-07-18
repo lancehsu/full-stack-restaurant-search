@@ -2,6 +2,8 @@ import { Dates, dateNumToStr } from '../components/Home/types';
 import { ResponseRestaurant } from '../store/restaurants/types';
 
 export const parseTimeToStr = (start: number, end: number): string => {
+  if (start === -1 && end === -1) return '';
+
   let startAm = true;
   let startHour = start | 0;
   const startMin = (start - startHour) * 60;
@@ -17,30 +19,13 @@ export const parseTimeToStr = (start: number, end: number): string => {
     endHour -= 12;
     endAm = false;
   }
-
-  return `${startHour}:${startMin >= 10 ? startMin : `0${startMin}`} ${
+  const startTimeStr = `${startHour}:${startMin >= 10 ? startMin : `0${startMin}`} ${
     startAm ? 'AM' : 'PM'
-  }-${endHour}:${endMin >= 10 ? endMin : `0${endMin}`} ${endAm ? 'AM' : 'PM'}`;
+  }`;
+  const endTimStr = `${endHour}:${endMin >= 10 ? endMin : `0${endMin}`} ${endAm ? 'AM' : 'PM'}`;
+  return `${startTimeStr}\n-${endTimStr}`;
 };
 
-const dateToNum = {
-  sun: 0,
-  mon: 1,
-  tue: 2,
-  wed: 3,
-  thu: 4,
-  fri: 5,
-  sat: 6,
-};
-const numToDate = {
-  0: 'sun',
-  1: 'mon',
-  2: 'tue',
-  3: 'wed',
-  4: 'thu',
-  5: 'fri',
-  6: 'sat',
-};
 const dateToStrArrProcess = ({
   name,
   _id,

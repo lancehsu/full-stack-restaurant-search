@@ -1,7 +1,6 @@
 export type WorkTime = { open: number; close: number };
 export type Restaurant = {
   name: string;
-  openInfo: string[];
   0: WorkTime;
   1: WorkTime;
   2: WorkTime;

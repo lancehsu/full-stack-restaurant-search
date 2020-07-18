@@ -18,7 +18,7 @@ const LoginDialog: FC = () => {
       <Dialog open={open} onClose={(): void => setOpen(false)}>
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
-          <TextField autoFocus margin="dense" label="Email" type="email" fullWidth />
+          <TextField autoFocus margin="dense" label="Account" type="string" fullWidth />
           <TextField margin="dense" label="Password" type="password" fullWidth />
           <SignupDialog />
         </DialogContent>

@@ -36,15 +36,11 @@ export const getRestaurants = (
     hour.length === 0
       ? ''
       : (parseInt(hour) + (am ? 0 : 12) + (min.length === 0 ? 0 : parseInt(min)) / 60).toString();
-  console.log(timeStr);
+
   return axios
     .get(`/api/restaurants?name=${name}&dates=${dateStr}&time=${timeStr}`)
     .then(({ data }: { data: ResponseRestaurant[] }) => {
-      const restaurants: Restaurant[] = data.map((e) => {
-        return { ...e, openInfo: dateToStrArrProcess(e) };
-      });
-      dispatch(getRestaurantsSuccess(restaurants));
-      return void 0;
+      dispatch(getRestaurantsSuccess(data));
     })
     .catch((err) => {
       dispatch(getRestaurantsFailure(err));

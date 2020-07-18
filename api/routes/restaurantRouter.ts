@@ -19,15 +19,17 @@ restaurantRouter.route('/').get(cors.cors, async (req, res, next) => {
       dateFilter[`${e}.open`] = {
         $lte: time.length > 0 ? parseInt(time as string) : 99,
       };
-
       // * If that date is not available, `${date}.close` should be -1
       dateFilter[`${e}.close`] = { $gt: time.length > 0 ? parseInt(time as string) : 0 };
     });
-    console.log(dateFilter);
+
     const restaurants = await Restaurants.find({
       name: nameReg,
       ...dateFilter,
-    }).exec();
+    })
+      .limit(20)
+      .lean()
+      .exec();
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
