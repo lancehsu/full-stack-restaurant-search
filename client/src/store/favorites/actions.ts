@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
+import { showMessage } from '../Message/actions';
+import { ShowMessage } from '../Message/types';
 import { Restaurant } from '../restaurants/types';
 
 import { State } from '../rootReducer';
@@ -46,9 +48,10 @@ const requestFavoritesFailure = (error: any): RequestFavoritesFailure => {
 
 export const getFavorites = (
   name: string = ''
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch) => {
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
+  const { user } = getState();
   return axios
-    .get(`/api/favorites/${name}`)
+    .get(`/api/favorites/${name}`, { headers: { Authorization: `bearer ${user?.token}` } })
     .then(({ data }) => {
       dispatch(getFavoritesSuccess(data));
       return void 0;
@@ -59,13 +62,13 @@ export const getFavorites = (
 };
 
 export const postFavorite = (
-  favorite: Favorite
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch) => {
+  favoriteName: string
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (dispatch) => {
   return axios
-    .post('/api/favorites/', { data: favorite })
+    .post(`/api/favorites/${favoriteName}`)
     .then(({ data }) => {
-      dispatch(postFavoriteSuccess(data));
-      return void 0;
+      if (data !== null) dispatch(postFavoriteSuccess(data));
+      else dispatch(showMessage(`${favoriteName} has been created!`));
     })
     .catch((err) => {
       dispatch(requestFavoritesFailure(err));

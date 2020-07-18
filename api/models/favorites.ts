@@ -11,7 +11,7 @@ const favoriteSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    coAuthor: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    coAuthors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
   },
   { timestamps: true }

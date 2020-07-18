@@ -76,11 +76,12 @@ const SignupDialog: FC = () => {
                 .post('/api/user/signup', { name, username, password })
                 .then(({ data }) => {
                   if (data.success) dispatch(showMessage(data.status));
+                  setOpen(false);
                 })
                 .catch((err) => {
                   dispatch(showMessage(err));
+                  setOpen(false);
                 });
-              setOpen(false);
             }}
           >
             Signup

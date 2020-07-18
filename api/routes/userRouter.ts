@@ -9,7 +9,7 @@ const userRouter = express.Router();
 
 userRouter.get('/me', cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id).lean();
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json(user);

@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFavorites } from '../../store/favorites/actions';
+import { deleteFavorite, getFavorites } from '../../store/favorites/actions';
 import { Favorite } from '../../store/favorites/types';
 import { State } from '../../store/rootReducer';
 import FavoriteCard from './FavoriteCard';
@@ -11,7 +11,6 @@ interface FavoritesContainerProps {
 const FavoritesContainer: FC<FavoritesContainerProps> = ({ editMode }) => {
   const dispatch = useDispatch();
   const favorites = useSelector<State, Favorite[]>((state) => state.favorites);
-
   useEffect(() => {
     dispatch(getFavorites());
   }, [dispatch]);
@@ -24,8 +23,7 @@ const FavoritesContainer: FC<FavoritesContainerProps> = ({ editMode }) => {
           idx={idx}
           favorite={e}
           selfDelete={() => {
-            // * Dispatch delete
-            // setFavorites((prev) => prev.slice(0, idx).concat(prev.slice(idx + 1, prev.length)))
+            dispatch(deleteFavorite(e.name));
           }}
         />
       ))}

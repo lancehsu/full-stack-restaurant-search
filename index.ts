@@ -10,6 +10,7 @@ import passport from 'passport';
 
 import restaurantRouter from './api/routes/restaurantRouter';
 import userRouter from './api/routes/userRouter';
+import favoriteRouter from './api/routes/favoriteRouter';
 import Restaurant from './api/models/restaurants';
 import strToDateProcess from './api/util/strToDateProcess';
 import config from './config';
@@ -24,7 +25,7 @@ const { MONGODB_URL, PORT } = config;
 const connect = mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
-const initDatabase = false;
+const initDatabase = true;
 connect
   .then(async (db) => {
     console.info('Connected correctly to "Restaurant Search" DB');
@@ -87,6 +88,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve('./') + '/build/frontend'));
 
 app.use('/api/restaurants', restaurantRouter);
+app.use('/api/favorites', favoriteRouter);
+
 app.use('/api/user', userRouter);
 
 app.get('*', (req: Request, res: Response): void => {
