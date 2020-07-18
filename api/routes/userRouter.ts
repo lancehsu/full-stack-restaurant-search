@@ -37,4 +37,46 @@ userRouter.post('/signup', cors.corsWithOptions, async (req, res) => {
   }
 });
 
+userRouter.post('/login', cors.corsWithOptions, (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (!user) {
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({ success: false, status: 'Login failed', err: info });
+      return;
+    }
+    console.log(user);
+
+    req.logIn(user, (error) => {
+      if (error) {
+        res.statusCode = 401;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({ success: false, status: 'Login failed', err: 'Could not login user' });
+        return;
+      }
+      // get JWT by encoding user id
+      const jwtToken = authenticate.getToken({ id: req.user.id });
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({ success: true, token: jwtToken, status: 'Login success' });
+    });
+  })(req, res, next);
+});
+
+userRouter.get('/logout', (req, res, next) => {
+  if (req.session) {
+    req.session.destroy();
+    res.clearCookie('session-id');
+    res.redirect('/');
+  } else {
+    const err = new Error('You are not logged in!');
+    err.status = 403;
+    next(err);
+  }
+});
+
 export default userRouter;
