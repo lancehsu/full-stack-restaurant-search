@@ -6,12 +6,17 @@ import * as fs from 'fs';
 import { parseStream } from '@fast-csv/parse';
 
 import restaurantRouter from './api/routes/restaurantRouter';
+import userRouter from './api/routes/userRouter';
 
 import Restaurant from './api/models/restaurants';
 import strToDateProcess from './api/util/strToDateProcess';
 import config from './config';
 
 const app = express();
+mongoose.plugin((schema) => {
+  schema.options.usePushEach = true;
+});
+
 const { MONGODB_URL, PORT } = config;
 
 const connect = mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -74,6 +79,7 @@ connect
 app.use(express.static(path.resolve('./') + '/build/frontend'));
 
 app.use('/api/restaurants', restaurantRouter);
+app.use('/api/user', userRouter);
 
 app.get('*', (req: Request, res: Response): void => {
   res.sendFile(path.resolve('./') + '/build/frontend/index.html');
