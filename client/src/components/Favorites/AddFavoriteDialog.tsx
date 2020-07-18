@@ -20,7 +20,7 @@ const AddFavoriteDialog: FC = () => {
   return (
     <>
       <Button
-        color="inherit"
+        color="primary"
         startIcon={<AddCircleOutline />}
         style={{ gridColumn: '11 / span 1' }}
         onClick={(): void => {
@@ -52,6 +52,7 @@ const AddFavoriteDialog: FC = () => {
             variant="contained"
             color="secondary"
             onClick={(): void => {
+              setFavoriteName('');
               dispatch(closeDialog());
             }}
           >
@@ -62,6 +63,7 @@ const AddFavoriteDialog: FC = () => {
             color="primary"
             onClick={(): void => {
               dispatch(postFavorite(favoriteName));
+              setFavoriteName('');
               dispatch(closeDialog());
             }}
           >

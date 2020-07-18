@@ -15,7 +15,6 @@ favoriteRouter
     try {
       const favorites = await Favorites.find({ author: req.user.id }).lean();
       res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
       res.json(favorites);
     } catch (err) {
       next(err);
@@ -66,18 +65,21 @@ favoriteRouter
   })
   .put(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName });
-      // favorite.name =
+      const updatedFavorite = await Favorites.findOneAndUpdate(
+        { author: req.user.id, name: req.params.favoriteName },
+        { $set: req.body },
+        { new: true }
+      );
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      // res.json(putFavorite);
+      res.json(updatedFavorite);
     } catch (err) {
       next(err);
     }
   })
   .delete(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const resp = await Favorites.findOneAndRemove({ user: req.user.id, name: favoriteName });
+      const resp = await Favorites.findOneAndRemove({ author: req.user.id, name: req.params.favoriteName }).lean();
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json(resp);

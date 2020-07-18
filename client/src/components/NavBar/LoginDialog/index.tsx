@@ -15,6 +15,11 @@ const LoginDialog: FC = () => {
   const [password, setPassword] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
 
+  const resetTextField = () => {
+    setEmail('');
+    setPassword('');
+  };
+
   return (
     <>
       <Button variant="outlined" color="inherit" onClick={(): void => setOpen(true)}>
@@ -51,6 +56,7 @@ const LoginDialog: FC = () => {
             variant="contained"
             onClick={(): void => {
               setOpen(false);
+              resetTextField();
             }}
             color="secondary"
           >
@@ -61,6 +67,7 @@ const LoginDialog: FC = () => {
             onClick={(): void => {
               dispatch(login(email, password));
               setOpen(false);
+              resetTextField();
             }}
             color="primary"
           >

@@ -12,7 +12,7 @@ interface FavoriteCardProps {
 }
 const FavoriteCard: FC<FavoriteCardProps> = ({ editMode, favorite, selfDelete }) => {
   return (
-    <Card elevation={3}>
+    <Card style={{ minHeight: '9em' }} elevation={3}>
       <CardHeader
         title={favorite.name}
         action={

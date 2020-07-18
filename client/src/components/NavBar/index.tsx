@@ -19,7 +19,7 @@ const NavBar: FC = () => {
   const history = useHistory();
 
   return (
-    <AppBar style={{ gridArea: '1 / 1 / span 2 / span 12' }} position="static">
+    <AppBar style={{ gridArea: '1 / 1 / 2 / 13' }} position="sticky">
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <ButtonBase
           color="inherit"

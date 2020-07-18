@@ -35,7 +35,7 @@ const putFavoriteSuccess = (data: Favorite): PutFavoriteSuccess => ({
   payload: data,
 });
 
-const deleteFavoriteSuccess = (data: Favorite): DeleteFavoriteSuccess => ({
+const deleteFavoriteSuccess = (data: string): DeleteFavoriteSuccess => ({
   type: DELETE_FAVORITE_SUCCESS,
   payload: data,
 });
@@ -51,7 +51,9 @@ export const getFavorites = (
 ): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
   const { user } = getState();
   return axios
-    .get(`/api/favorites/${name}`, { headers: { Authorization: `bearer ${user?.token}` } })
+    .get(`/api/favorites/${name}`, {
+      headers: { Authorization: `bearer ${user?.token}` },
+    })
     .then(({ data }) => {
       dispatch(getFavoritesSuccess(data));
       return void 0;
@@ -63,9 +65,18 @@ export const getFavorites = (
 
 export const postFavorite = (
   favoriteName: string
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (dispatch) => {
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (
+  dispatch,
+  getState
+) => {
+  const { user } = getState();
+  console.log(user?.token);
   return axios
-    .post(`/api/favorites/${favoriteName}`)
+    .post(
+      `/api/favorites/${favoriteName}`,
+      {},
+      { headers: { Authorization: `bearer ${user?.token}` } }
+    )
     .then(({ data }) => {
       if (data !== null) dispatch(postFavoriteSuccess(data));
       else dispatch(showMessage(`${favoriteName} has been created!`));
@@ -75,14 +86,23 @@ export const postFavorite = (
     });
 };
 
+type UpdateObject = { name: string; restaurant: Restaurant };
 export const putFavorite = (
-  name: string,
-  restaurants: Restaurant[]
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch) => {
+  favoriteName: string,
+  { name, restaurant }: UpdateObject
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
+  const { user } = getState();
+
+  const queryStr = restaurant === undefined ? '' : `?restaurant=${restaurant.name}`;
+
   return axios
-    .put(`/api/favorites/${name}`, { data: restaurants })
+    .put(
+      `/api/favorites/${favoriteName}${queryStr}`,
+      { name },
+      { headers: { Authorization: `bearer ${user?.token}` } }
+    )
     .then(({ data }) => {
-      dispatch(putFavoriteSuccess(data));
+      dispatch(putFavoriteSuccess(data as Favorite));
       return void 0;
     })
     .catch((err) => {
@@ -91,10 +111,13 @@ export const putFavorite = (
 };
 
 export const deleteFavorite = (
-  name: string
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch) => {
+  favoriteName: string
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
+  const { user } = getState();
   return axios
-    .delete(`/api/favorites/${name}`)
+    .delete(`/api/favorites/${favoriteName}`, {
+      headers: { Authorization: `bearer ${user?.token}` },
+    })
     .then(({ data }) => {
       dispatch(deleteFavoriteSuccess(data.name));
       return void 0;

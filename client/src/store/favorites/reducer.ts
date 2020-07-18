@@ -17,18 +17,18 @@ const favoritesReducer = (state = initialState.favorites, action: FavoritesActio
       return state.concat(action.payload);
     case PUT_FAVORITE_SUCCESS: {
       const newState = [...state];
-      // const idx = state.findIndex((e) => {
-      //   e.name === action.payload.name;
-      // });
-      // newState[idx] = { ...newState[idx], restaurants: action.payload.restaurants };
+      const idx = newState.findIndex((e) => e.name === action.payload.name);
+      newState[idx] = {
+        ...newState[idx],
+        name: action.payload.name,
+        restaurants: action.payload.restaurants,
+      };
       return newState;
     }
-    case DELETE_FAVORITE_SUCCESS:
-      // const idx = state.findIndex((e) => {
-      //   e.name === action.payload.name;
-      // });
-      // return state.slice(0, idx).concat(state.slice(idx + 1));
-      return state;
+    case DELETE_FAVORITE_SUCCESS: {
+      const idx = state.findIndex((e) => e.name === action.payload);
+      return state.slice(0, idx).concat(state.slice(idx + 1));
+    }
     case REQUEST_FAVORITES_FAILURE:
       return state;
     default:

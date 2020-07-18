@@ -12,6 +12,8 @@ const Home: FC = () => {
       <a
         style={{
           gridArea: '12 / 12 / 13 / 13',
+          display: 'flex',
+          alignItems: 'flex-end',
           color: theme.palette.getContrastText(
             theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50]
           ),

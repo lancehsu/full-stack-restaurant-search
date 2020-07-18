@@ -19,7 +19,7 @@ export type PutFavoriteSuccess = {
 };
 export type DeleteFavoriteSuccess = {
   type: typeof DELETE_FAVORITE_SUCCESS;
-  payload: { name: string };
+  payload: string;
 };
 export type RequestFavoritesFailure = { type: typeof REQUEST_FAVORITES_FAILURE };
 

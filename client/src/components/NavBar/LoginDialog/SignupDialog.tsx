@@ -8,13 +8,20 @@ import { DialogTitle } from '@material-ui/core';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { showMessage } from '../../../store/Message/actions';
+import { AlternateEmailOutlined } from '@material-ui/icons';
 
 const SignupDialog: FC = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
+
+  const resetTextField = () => {
+    setEmail('');
+    setPassword('');
+    setName('');
+  };
 
   return (
     <>
@@ -31,9 +38,9 @@ const SignupDialog: FC = () => {
             label="Email"
             type="email"
             fullWidth
-            value={username}
+            value={email}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setEmail(e.target.value);
             }}
           />
           <TextField
@@ -64,6 +71,7 @@ const SignupDialog: FC = () => {
             color="secondary"
             onClick={(): void => {
               setOpen(false);
+              resetTextField();
             }}
           >
             Cancel
@@ -73,14 +81,16 @@ const SignupDialog: FC = () => {
             color="primary"
             onClick={(): void => {
               axios
-                .post('/api/user/signup', { name, username, password })
+                .post('/api/user/signup', { name, username: email, password })
                 .then(({ data }) => {
                   if (data.success) dispatch(showMessage(data.status));
                   setOpen(false);
+                  resetTextField();
                 })
                 .catch((err) => {
                   dispatch(showMessage(err));
                   setOpen(false);
+                  resetTextField();
                 });
             }}
           >

@@ -9,16 +9,21 @@ const Favorites: FC = () => {
   return (
     <>
       <Typography
+        style={{
+          gridArea: '2 / 1 / 3 / 13',
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+        }}
         variant="h3"
         color="textPrimary"
-        align="center"
-        style={{ gridColumn: '1 / span 12' }}
       >
         Favorites
       </Typography>
       <Button
+        color="primary"
         startIcon={<EditOutlined />}
-        style={{ gridColumn: '2 / span 1' }}
+        style={{ gridArea: ' 3 / 2 / 4 / 3' }}
         onClick={() => {
           setEditMode((prev) => !prev);
         }}
