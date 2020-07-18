@@ -8,6 +8,9 @@ import { DialogTitle } from '@material-ui/core';
 
 const SignupDialog: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
   return (
     <>
@@ -17,9 +20,39 @@ const SignupDialog: FC = () => {
       <Dialog open={open} onClose={(): void => setOpen(false)}>
         <DialogTitle>Register</DialogTitle>
         <DialogContent>
-          <TextField required autoFocus margin="dense" label="Account" type="string" fullWidth />
-          <TextField required margin="dense" label="Password" type="password" fullWidth />
-          <TextField margin="dense" label="Name" type="name" fullWidth />
+          <TextField
+            required
+            autoFocus
+            margin="dense"
+            label="Account"
+            type="string"
+            fullWidth
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <TextField
+            required
+            margin="dense"
+            label="Password"
+            type="password"
+            fullWidth
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <TextField
+            margin="dense"
+            label="Name"
+            type="name"
+            fullWidth
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
         </DialogContent>
         <DialogActions>
           <Button

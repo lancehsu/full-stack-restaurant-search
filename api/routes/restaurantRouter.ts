@@ -4,7 +4,7 @@ import cors from './cors';
 
 const restaurantRouter = express.Router();
 
-restaurantRouter.route('/').get(cors.cors, async (req, res, next) => {
+restaurantRouter.get('/', cors.cors, async (req, res, next) => {
   try {
     const { name, dates, time } = req.query;
     const nameReg = new RegExp(name as string, 'i');

@@ -4,10 +4,12 @@ import path from 'path';
 import createError from 'http-errors';
 import * as fs from 'fs';
 import { parseStream } from '@fast-csv/parse';
+import compression from 'compression';
+import morgan from 'morgan';
+import passport from 'passport';
 
 import restaurantRouter from './api/routes/restaurantRouter';
 import userRouter from './api/routes/userRouter';
-
 import Restaurant from './api/models/restaurants';
 import strToDateProcess from './api/util/strToDateProcess';
 import config from './config';
@@ -75,6 +77,12 @@ connect
     }
   })
   .catch((err) => console.error(err));
+
+app.use(morgan('dev'));
+app.use(passport.initialize());
+app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.resolve('./') + '/build/frontend'));
 
