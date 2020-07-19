@@ -7,6 +7,7 @@ import {
   Paper,
   MenuList,
   ButtonBase,
+  Tooltip,
 } from '@material-ui/core';
 
 export type PopupMenuItemProps = {
@@ -15,9 +16,10 @@ export type PopupMenuItemProps = {
 };
 
 interface PopupMenuListProps {
+  title: string;
   menuItems: PopupMenuItemProps[];
 }
-const PopupMenuList: FC<PopupMenuListProps> = ({ children, menuItems }) => {
+const PopupMenuList: FC<PopupMenuListProps> = ({ children, title, menuItems }) => {
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -41,9 +43,11 @@ const PopupMenuList: FC<PopupMenuListProps> = ({ children, menuItems }) => {
 
   return (
     <>
-      <ButtonBase ref={anchorRef} disableRipple onClick={handleToggle}>
-        {children}
-      </ButtonBase>
+      <Tooltip title={title}>
+        <ButtonBase ref={anchorRef} disableRipple onClick={handleToggle}>
+          {children}
+        </ButtonBase>
+      </Tooltip>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
           <Grow

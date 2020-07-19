@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { memo, FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Typography, ButtonBase, Tooltip } from '@material-ui/core';
 import { Brightness2, BrightnessHigh } from '@material-ui/icons';
@@ -56,4 +56,4 @@ const NavBar: FC = () => {
   );
 };
 
-export default NavBar;
+export default memo(NavBar);

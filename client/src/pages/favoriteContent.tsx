@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Button, Typography } from '@material-ui/core';
-import FavoritesContainer from '../components/Favorites/FavoritesContainer';
+import FavoriteRestaurantsContainer from '../components/FavortieContent/FavoriteRestaurantsContainer';
 import { AddCircleOutline, EditOutlined } from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -67,7 +67,7 @@ const FavoriteContent: FC = () => {
       >
         Add
       </Button>
-      <FavoritesContainer editMode={editMode} />
+      <FavoriteRestaurantsContainer favoriteName={content} editMode={editMode} />
     </>
   );
 };

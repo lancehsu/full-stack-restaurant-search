@@ -58,7 +58,7 @@ const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurant, favorites, us
 
   return (
     <>
-      <PopupMenuList menuItems={menuItems}>
+      <PopupMenuList menuItems={menuItems} title="Add to favorite list">
         {favoriteName === '' ? (
           <Bookmark />
         ) : (

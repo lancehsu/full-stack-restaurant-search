@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useEffect, useMemo, useCallback } from 'react';
+import React, { FC, useRef, useState, useEffect, memo, useMemo, useCallback } from 'react';
 import { Search } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
 import { getRestaurants, TimeObject } from '../../store/restaurants/actions';
@@ -75,7 +75,6 @@ const SearchField: FC = () => {
   const [searchDateOption, setSearchDateOption] = useState<DateOptions>(
     initSearchDateOption.current
   );
-
   const [searchTime, setSearchTime] = useState<TimeObject>({ hour: '', min: '', am: false });
   const [isSearchFieldFocus, setIsSearchFieldFocus] = useState<boolean>(false);
 
@@ -161,4 +160,4 @@ const SearchField: FC = () => {
   );
 };
 
-export default SearchField;
+export default memo(SearchField);

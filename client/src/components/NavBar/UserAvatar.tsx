@@ -34,9 +34,8 @@ const UserAvatar: FC = () => {
           <Bookmark />
         </IconButton>
       </Tooltip>
-
-      <PopupMenuList menuItems={menuItems}>
-        <Avatar>{user?.name}</Avatar>
+      <PopupMenuList menuItems={menuItems} title="Setting">
+        <Avatar>{user?.name === '' ? user?.email : user?.name}</Avatar>
       </PopupMenuList>
     </>
   );
