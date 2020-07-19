@@ -30,6 +30,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -52,7 +53,7 @@ mongoose_1.default.plugin((schema) => {
 });
 const { MONGODB_URL, PORT } = config_1.default;
 const connect = mongoose_1.default.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+app.listen((_a = process.env.PORT) !== null && _a !== void 0 ? _a : PORT, () => { var _a; return console.info(`Server listening on port ${(_a = process.env.PORT) !== null && _a !== void 0 ? _a : PORT}`); });
 const initDatabase = true;
 connect
     .then((db) => __awaiter(void 0, void 0, void 0, function* () {
