@@ -1,35 +1,24 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Input, Typography } from '@material-ui/core';
+import React, { Dispatch, FC } from 'react';
+import { TextField, Typography } from '@material-ui/core';
 
 interface FavoriteListTitleProps {
   editMode: boolean;
   favoriteName: string;
-  selfEditName: (newName: string) => void;
+  favoriteEditName: string;
+  setFavoriteEditName: Dispatch<string>;
+  setIsSearchFieldFocus: Dispatch<boolean>;
 }
 const FavoriteListTitle: FC<FavoriteListTitleProps> = ({
   editMode,
   favoriteName,
-  selfEditName,
+  favoriteEditName,
+  setFavoriteEditName,
+  setIsSearchFieldFocus,
 }) => {
-  const [isSearchFieldFocus, setIsSearchFieldFocus] = useState<boolean>(false);
-  const [favoriteEditName, setFavoriteEditName] = useState<string>(favoriteName);
-
-  useEffect(() => {
-    const pressEnterCallback = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        selfEditName(favoriteEditName);
-      }
-    };
-
-    if (isSearchFieldFocus) {
-      window.addEventListener('keypress', pressEnterCallback);
-      return () => window.removeEventListener('keypress', pressEnterCallback);
-    }
-  }, [isSearchFieldFocus, favoriteEditName]);
-
   return editMode ? (
-    <Input
+    <TextField
       value={favoriteEditName}
+      size="medium"
       onChange={(e) => {
         setFavoriteEditName(e.target.value);
       }}

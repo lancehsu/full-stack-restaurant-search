@@ -35,7 +35,7 @@ const SearchResultTable: FC = () => {
     return () => {
       dispatch(resetRestaurants());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <TableContainer style={{ gridArea: '5 / 1 / 12 / 13', width: '90%' }} component={Paper}>

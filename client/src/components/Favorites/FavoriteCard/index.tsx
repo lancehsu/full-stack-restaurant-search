@@ -1,8 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { Cancel } from '@material-ui/icons';
-import { createStyles, fade, IconButton, makeStyles, Theme } from '@material-ui/core';
+import {
+  Button,
+  CardContent,
+  createStyles,
+  fade,
+  IconButton,
+  makeStyles,
+  Theme,
+} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 import { Favorite } from '../../../store/favorites/types';
@@ -44,6 +52,22 @@ const FavoriteCard: FC<FavoriteCardProps> = ({
 }) => {
   const classes = useStyles();
   const history = useHistory();
+  const [isSearchFieldFocus, setIsSearchFieldFocus] = useState<boolean>(false);
+  const [favoriteEditName, setFavoriteEditName] = useState<string>(favorite.name);
+
+  useEffect(() => {
+    const pressEnterCallback = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        selfEditName(favoriteEditName);
+      }
+    };
+
+    if (isSearchFieldFocus) {
+      window.addEventListener('keypress', pressEnterCallback);
+      return () => window.removeEventListener('keypress', pressEnterCallback);
+    }
+  }, [isSearchFieldFocus, favoriteEditName, selfEditName]);
+
   return (
     <Card
       className={editMode ? classes.editModeCard : classes.normalCard}
@@ -59,7 +83,9 @@ const FavoriteCard: FC<FavoriteCardProps> = ({
           <FavoriteCardTitle
             favoriteName={favorite.name}
             editMode={editMode}
-            selfEditName={selfEditName}
+            favoriteEditName={favoriteEditName}
+            setFavoriteEditName={setFavoriteEditName}
+            setIsSearchFieldFocus={setIsSearchFieldFocus}
           />
         }
         disableTypography={true}
@@ -76,6 +102,16 @@ const FavoriteCard: FC<FavoriteCardProps> = ({
           </IconButton>
         }
       />
+      <CardContent style={{ display: !editMode ? 'none' : undefined }}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            selfEditName(favoriteEditName);
+          }}
+        >
+          Confirm
+        </Button>
+      </CardContent>
     </Card>
   );
 };
