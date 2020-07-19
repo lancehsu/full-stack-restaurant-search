@@ -15,6 +15,7 @@ import { User } from '../../../store/user/types';
 import { getFavorites } from '../../../store/favorites/actions';
 import { Favorite } from '../../../store/favorites/types';
 import AddToFavoriteBtn from './AddToFavoriteBtn';
+import { resetRestaurants } from '../../../store/restaurants/actions';
 
 const tableHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -32,6 +33,11 @@ const SearchResultTable: FC = () => {
   useEffect(() => {
     if (user !== null) dispatch(getFavorites());
   }, [user, dispatch]);
+  useEffect(() => {
+    return () => {
+      dispatch(resetRestaurants());
+    };
+  }, []);
 
   return (
     <TableContainer style={{ gridArea: '5 / 1 / 12 / 13', width: '90%' }} component={Paper}>

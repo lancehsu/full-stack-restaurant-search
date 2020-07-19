@@ -1,4 +1,5 @@
 import express from 'express';
+import { decodedTextSpanIntersectsWith } from 'typescript';
 import Restaurants from '../models/restaurants';
 import cors from './cors';
 
@@ -7,7 +8,7 @@ const restaurantRouter = express.Router();
 restaurantRouter.get('/', cors.cors, async (req, res, next) => {
   try {
     const { name, dates, time } = req.query;
-    const nameReg = new RegExp(name as string, 'i');
+
     const dateList = dates.length > 0 ? (dates as string).split(',') : [];
 
     const dateFilter = {};
@@ -22,14 +23,9 @@ restaurantRouter.get('/', cors.cors, async (req, res, next) => {
       // * If that date is not available, `${date}.close` should be -1
       dateFilter[`${e}.close`] = { $gt: time.length > 0 ? parseInt(time as string) : 0 };
     });
+    const searchObject = { ...dateFilter, ...(name !== '' && { name: new RegExp(name as string, 'i') }) };
 
-    const restaurants = await Restaurants.find({
-      name: nameReg,
-      ...dateFilter,
-    })
-      .limit(20)
-      .lean()
-      .exec();
+    const restaurants = await Restaurants.find(searchObject).limit(20).lean().exec();
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');

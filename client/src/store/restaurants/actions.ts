@@ -6,12 +6,18 @@ import { State } from '../rootReducer';
 import {
   GET_RESTAURANTS_SUCCESS,
   GET_RESTAURANTS_FAILURE,
+  RESET_RESTAURANTS,
   GetRestaurantsSuccess,
   GetRestaurantsFailure,
+  ResetRestaurants,
   RestaurantsAction,
   Restaurant,
   ResponseRestaurant,
 } from './types';
+
+export const resetRestaurants = (): ResetRestaurants => ({
+  type: RESET_RESTAURANTS,
+});
 
 const getRestaurantsSuccess = (data: Restaurant[]): GetRestaurantsSuccess => ({
   type: GET_RESTAURANTS_SUCCESS,

@@ -23,10 +23,12 @@ export type ResponseRestaurant = {
   6: WorkTime;
 };
 
+export const RESET_RESTAURANTS = 'RESET_RESTAURANTS';
 export const GET_RESTAURANTS_SUCCESS = 'GET_RESTAURANTS_SUCCESS';
 export const GET_RESTAURANTS_FAILURE = 'GET_RESTAURANTS_FAILURE';
 
+export type ResetRestaurants = { type: typeof RESET_RESTAURANTS };
 export type GetRestaurantsSuccess = { type: typeof GET_RESTAURANTS_SUCCESS; payload: Restaurant[] };
 export type GetRestaurantsFailure = { type: typeof GET_RESTAURANTS_FAILURE };
 
-export type RestaurantsAction = GetRestaurantsSuccess | GetRestaurantsFailure;
+export type RestaurantsAction = GetRestaurantsSuccess | GetRestaurantsFailure | ResetRestaurants;
