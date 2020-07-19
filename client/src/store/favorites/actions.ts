@@ -93,24 +93,20 @@ export const postFavorite = (
     });
 };
 
-type UpdateObject = { name: string; restaurant: Restaurant };
+type UpdateObject = { name?: string; restaurant?: Restaurant };
 export const putFavorite = (
   favoriteName: string,
-  { name, restaurant }: UpdateObject
+  updateObject: UpdateObject
 ): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (
   dispatch,
   getState
 ) => {
   const { user } = getState();
 
-  const queryStr = restaurant === undefined ? '' : `?restaurant=${restaurant.name}`;
-
   return axios
-    .put(
-      `/api/favorites/${favoriteName}${queryStr}`,
-      { name },
-      { headers: { Authorization: `bearer ${user?.token}` } }
-    )
+    .put(`/api/favorites/${favoriteName}`, updateObject, {
+      headers: { Authorization: `bearer ${user?.token}` },
+    })
     .then(({ data }) => {
       dispatch(putFavoriteSuccess(data as Favorite));
       return void 0;

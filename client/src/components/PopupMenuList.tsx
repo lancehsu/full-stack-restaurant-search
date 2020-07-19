@@ -9,10 +9,15 @@ import {
   ButtonBase,
 } from '@material-ui/core';
 
-interface PopupMenuListProps {
+export type PopupMenuItemProps = {
+  name: string;
   onClick: () => void;
+};
+
+interface PopupMenuListProps {
+  menuItems: PopupMenuItemProps[];
 }
-const PopupMenuList: FC<PopupMenuListProps> = ({ children, onClick }) => {
+const PopupMenuList: FC<PopupMenuListProps> = ({ children, menuItems }) => {
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -48,14 +53,17 @@ const PopupMenuList: FC<PopupMenuListProps> = ({ children, onClick }) => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem
-                    onClick={() => {
-                      onClick();
-                      handleToggle();
-                    }}
-                  >
-                    Logout
-                  </MenuItem>
+                  {menuItems.map((menuItem) => (
+                    <MenuItem
+                      key={menuItem.name}
+                      onClick={() => {
+                        menuItem.onClick();
+                        handleToggle();
+                      }}
+                    >
+                      {menuItem.name}
+                    </MenuItem>
+                  ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

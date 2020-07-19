@@ -74,7 +74,7 @@ const SearchResultTable: FC = () => {
                   {parseTimeToStr(row[6].open, row[6].close)}
                 </TableCell>
                 <TableCell>
-                  <AddToFavoriteBtn restaurantName={row.name} />
+                  <AddToFavoriteBtn restaurant={row} />
                 </TableCell>
               </TableRow>
             );

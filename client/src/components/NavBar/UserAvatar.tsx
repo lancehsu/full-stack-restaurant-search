@@ -13,6 +13,14 @@ const UserAvatar: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector<State, User>((state) => state.user);
+  const menuItems = [
+    {
+      name: 'Logout',
+      onClick: () => {
+        dispatch(logout());
+      },
+    },
+  ];
 
   return (
     <>
@@ -27,11 +35,7 @@ const UserAvatar: FC = () => {
         </IconButton>
       </Tooltip>
 
-      <PopupMenuList
-        onClick={() => {
-          dispatch(logout());
-        }}
-      >
+      <PopupMenuList menuItems={menuItems}>
         <Avatar>{user?.name}</Avatar>
       </PopupMenuList>
     </>

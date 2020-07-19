@@ -1,8 +1,8 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { State } from '../../../store/rootReducer';
-import { Button, IconButton } from '@material-ui/core';
+import { Button, IconButton, Popper, useTheme } from '@material-ui/core';
 import { Bookmark } from '@material-ui/icons';
 import { User } from '../../../store/user/types';
 import { putFavorite } from '../../../store/favorites/actions';
@@ -10,13 +10,16 @@ import { Favorite } from '../../../store/favorites/types';
 import { showMessage } from '../../../store/message/actions';
 import { openDialog } from '../../../store/dialog/actions';
 import { useHistory } from 'react-router';
+import PopupMenuList, { PopupMenuItemProps } from '../../PopupMenuList';
+import { Restaurant } from '../../../store/restaurants/types';
 
 interface AddToFavoriteBtnProps {
-  restaurantName: string;
+  restaurant: Restaurant;
 }
-const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurantName }) => {
+const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurant }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const { user, favorites } = useSelector<State, { user: User; favorites: Favorite[] }>(
     (state) => ({
       favorites: state.favorites,
@@ -48,24 +51,28 @@ const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurantName }) => {
   let favoriteName = '';
   for (let i = 0; i < favorites.length; i++) {
     if (favoriteName !== '') break;
-    const restaurantIdx = favorites[i].restaurants.findIndex((e) => e.name === restaurantName);
+    const restaurantIdx = favorites[i].restaurants.findIndex((e) => e.name === restaurant.name);
     if (restaurantIdx !== -1) favoriteName = favorites[i].name;
   }
 
+  const menuItems: PopupMenuItemProps[] = favorites.map((e) => ({
+    name: e.name,
+    onClick: () => {
+      dispatch(putFavorite(e.name, { restaurant }));
+    },
+  }));
+
   return (
     <>
-      {favoriteName === '' ? (
-        <IconButton
-          color="inherit"
-          onClick={() => {
-            // dispatch(putFavorite())
-          }}
-        >
+      <PopupMenuList menuItems={menuItems}>
+        {favoriteName === '' ? (
           <Bookmark />
-        </IconButton>
-      ) : (
-        <Button color="inherit"></Button>
-      )}
+        ) : (
+          <Button color="inherit" startIcon={<Bookmark />}>
+            {favoriteName}
+          </Button>
+        )}
+      </PopupMenuList>
     </>
   );
 };
