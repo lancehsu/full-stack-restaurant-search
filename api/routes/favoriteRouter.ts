@@ -65,7 +65,8 @@ favoriteRouter
   })
   .put(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const { name, restaurant } = req.body;
+      // * If remove === true, remove restaurant
+      const { name, restaurant, remove } = req.body;
       if (name === undefined) {
         // * Update restaurants
         const favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName }).populate(
@@ -73,7 +74,9 @@ favoriteRouter
         );
 
         const idx = favorite.restaurants.findIndex((e) => e.name === restaurant.name);
-        if (idx === -1) favorite.restaurants.push(restaurant);
+        if (remove) {
+          favorite.restaurants = favorite.restaurants.slice(0, idx).concat(favorite.restaurants.slice(idx + 1));
+        } else if (idx === -1) favorite.restaurants.push(restaurant);
 
         await favorite.save();
         const resp = await Favorites.findById(favorite.id).populate('restaurants');

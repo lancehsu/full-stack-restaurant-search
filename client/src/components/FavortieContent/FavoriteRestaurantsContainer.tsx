@@ -2,9 +2,8 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 
-import { deleteFavorite, getFavorites } from '../../store/favorites/actions';
+import { getFavorites, putFavorite } from '../../store/favorites/actions';
 import { Favorite } from '../../store/favorites/types';
-import { showMessage } from '../../store/message/actions';
 import { State } from '../../store/rootReducer';
 import RestaurantCard from './RestaurantCard';
 
@@ -44,11 +43,7 @@ const FavoriteRestaurantsContainer: FC<FavoriteRestaurantsContainerProps> = ({
           editMode={editMode}
           restaurant={e}
           selfDelete={() => {
-            dispatch(
-              showMessage(`It will delete all items in "${e.name}", confirm?`, () => {
-                dispatch(deleteFavorite(e.name));
-              })
-            );
+            dispatch(putFavorite(favorite.name, { restaurant: e, remove: true }));
           }}
         />
       ))}

@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { IconButton, Typography } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { Bookmark } from '@material-ui/icons';
 import { User } from '../../../store/user/types';
 import { putFavorite } from '../../../store/favorites/actions';
@@ -42,33 +42,17 @@ const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurant, favorites, us
     );
   }
 
-  let favoriteName = '';
-  for (let i = 0; i < favorites.length; i++) {
-    if (favoriteName !== '') break;
-    const restaurantIdx = favorites[i].restaurants.findIndex((e) => e.name === restaurant.name);
-    if (restaurantIdx !== -1) favoriteName = favorites[i].name;
-  }
-
   const menuItems: PopupMenuItemProps[] = favorites.map((e) => ({
     name: e.name,
     onClick: () => {
-      dispatch(putFavorite(e.name, { restaurant }));
+      dispatch(putFavorite(e.name, { restaurant, remove: false }));
     },
   }));
 
   return (
-    <>
-      <PopupMenuList menuItems={menuItems} title="Add to favorite list">
-        {favoriteName === '' ? (
-          <Bookmark />
-        ) : (
-          <>
-            <Bookmark />
-            <Typography>{favoriteName}</Typography>
-          </>
-        )}
-      </PopupMenuList>
-    </>
+    <PopupMenuList menuItems={menuItems} title="Add to favorite list">
+      <Bookmark />
+    </PopupMenuList>
   );
 };
 

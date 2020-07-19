@@ -48,11 +48,13 @@ const PopupMenuList: FC<PopupMenuListProps> = ({ children, title, menuItems }) =
           {children}
         </ButtonBase>
       </Tooltip>
-      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition>
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            style={{
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>

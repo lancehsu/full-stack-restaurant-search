@@ -25,7 +25,7 @@ restaurantRouter.get('/', cors.cors, async (req, res, next) => {
     });
     const searchObject = { ...dateFilter, ...(name !== '' && { name: new RegExp(name as string, 'i') }) };
 
-    const restaurants = await Restaurants.find(searchObject).limit(20).lean().exec();
+    const restaurants = await Restaurants.find(searchObject).limit(50).lean().exec();
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');

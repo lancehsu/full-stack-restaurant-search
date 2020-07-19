@@ -93,7 +93,12 @@ export const postFavorite = (
     });
 };
 
-type UpdateObject = { name?: string; restaurant?: Restaurant };
+/**
+ * * function 0: Update the Favorite name
+ * * function 1: Add a Restaurant to the Favorite (remove === false)
+ * * function 2: Remove a Restaurant from the Favorite (remove === true)
+ */
+type UpdateObject = { name?: string; restaurant?: Restaurant; remove: boolean };
 export const putFavorite = (
   favoriteName: string,
   updateObject: UpdateObject
@@ -109,10 +114,10 @@ export const putFavorite = (
     })
     .then(({ data }) => {
       dispatch(putFavoriteSuccess(data as Favorite));
-      return void 0;
+      if (!updateObject.remove)
+        dispatch(showMessage(`${updateObject.restaurant?.name} added to ${favoriteName}`));
     })
     .catch((err) => {
-      // dispatch(showMessage(err));
       alert(err);
       console.error(err);
       dispatch(requestFavoritesFailure());
