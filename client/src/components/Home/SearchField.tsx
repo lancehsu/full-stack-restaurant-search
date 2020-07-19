@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useMemo, useCallback } from 'react';
+import React, { FC, useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import { Search } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
 import { getRestaurants, TimeObject } from '../../store/restaurants/actions';
@@ -63,7 +63,7 @@ const SearchField: FC = () => {
   const dispatch = useDispatch();
   const [searchName, setSearchName] = useState<string>('');
   const date = new Date().getDay().toString();
-  const [searchDateOption, setSearchDateOption] = useState<DateOptions>({
+  const initSearchDateOption = useRef<DateOptions>({
     [Dates.sun]: false,
     [Dates.mon]: false,
     [Dates.tue]: false,
@@ -72,6 +72,10 @@ const SearchField: FC = () => {
     [Dates.fri]: false,
     [Dates.sat]: false,
   });
+  const [searchDateOption, setSearchDateOption] = useState<DateOptions>(
+    initSearchDateOption.current
+  );
+
   const [searchTime, setSearchTime] = useState<TimeObject>({ hour: '', min: '', am: false });
   const [isSearchFieldFocus, setIsSearchFieldFocus] = useState<boolean>(false);
 
@@ -80,7 +84,8 @@ const SearchField: FC = () => {
   }, [searchDateOption]);
 
   useEffect(() => {
-    setSearchDateOption((prev) => ({ ...prev, [date]: true }));
+    initSearchDateOption.current = { ...initSearchDateOption.current, [date]: true };
+    setSearchDateOption(initSearchDateOption.current);
   }, [date, setSearchDateOption]);
 
   const searchRestaurants = useCallback(() => {
@@ -88,15 +93,7 @@ const SearchField: FC = () => {
     setSearchName('');
     setSearchTime({ hour: '', min: '', am: false });
     setIsSearchFieldFocus(false);
-    setSearchDateOption({
-      [Dates.sun]: false,
-      [Dates.mon]: false,
-      [Dates.tue]: false,
-      [Dates.wed]: false,
-      [Dates.thu]: false,
-      [Dates.fri]: false,
-      [Dates.sat]: false,
-    });
+    setSearchDateOption(initSearchDateOption.current);
   }, [
     searchName,
     dates,

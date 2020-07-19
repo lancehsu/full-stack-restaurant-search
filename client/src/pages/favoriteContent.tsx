@@ -1,9 +1,11 @@
 import React, { useState, FC } from 'react';
 import { Button, Typography } from '@material-ui/core';
 import FavoritesContainer from '../components/Favorites/FavoritesContainer';
-import { EditOutlined } from '@material-ui/icons';
-import AddFavoriteDialog from '../components/Favorites/AddFavoriteDialog';
+import { AddCircleOutline, EditOutlined } from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { showMessage } from '../store/message/actions';
+import { useHistory, useParams } from 'react-router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,9 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Favorites: FC = () => {
-  const [editMode, setEditMode] = useState<boolean>(false);
+const FavoriteContent: FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { content } = useParams<{ content: string }>();
   const classes = useStyles();
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   return (
     <>
@@ -36,7 +41,7 @@ const Favorites: FC = () => {
         variant="h3"
         color="textPrimary"
       >
-        Favorites
+        {content}
       </Typography>
       <Button
         color="primary"
@@ -48,10 +53,23 @@ const Favorites: FC = () => {
       >
         Edit
       </Button>
-      <AddFavoriteDialog />
+      <Button
+        color="primary"
+        startIcon={<AddCircleOutline />}
+        style={{ gridColumn: '11 / span 1' }}
+        onClick={(): void => {
+          dispatch(
+            showMessage('Go search and add restaurants', () => {
+              history.push('/');
+            })
+          );
+        }}
+      >
+        Add
+      </Button>
       <FavoritesContainer editMode={editMode} />
     </>
   );
 };
 
-export default Favorites;
+export default FavoriteContent;

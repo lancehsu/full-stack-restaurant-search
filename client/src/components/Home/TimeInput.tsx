@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, Dispatch, SetStateAction } from 'react';
+import React, { FC, memo, useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { Button, Input, Typography } from '@material-ui/core';
 import { TimeObject } from '../../store/restaurants/actions';
 
@@ -73,4 +73,4 @@ const TimeInput: FC<TimeInputProps> = ({ setSearchTime }) => {
   );
 };
 
-export default TimeInput;
+export default memo(TimeInput);

@@ -2,8 +2,28 @@ import React, { FC } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { Cancel } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { createStyles, fade, IconButton, makeStyles, Theme } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    editModeCard: {
+      minHeight: '9em',
+      '&:hover': {
+        cursor: 'default',
+      },
+      width: '80%',
+    },
+    normalCard: {
+      minHeight: '9em',
+      '&:hover': {
+        backgroundColor: fade(theme.palette.common.white, 0.55),
+      },
+      width: '80%',
+      cursor: 'pointer',
+    },
+  })
+);
 
 interface FavoriteCardProps {
   editMode: boolean;
@@ -13,23 +33,34 @@ interface FavoriteCardProps {
   selfDelete: () => void;
 }
 const FavoriteCard: FC<FavoriteCardProps> = ({ editMode, url, favorite, selfDelete }) => {
+  const classes = useStyles();
+  const history = useHistory();
   return (
-    <Link style={{ pointerEvents: editMode ? 'none' : 'auto', textDecoration: 'none' }} to={url}>
-      <Card style={{ minHeight: '9em' }} elevation={3}>
-        <CardHeader
-          title={favorite.name}
-          action={
-            <IconButton
-              size="small"
-              style={{ display: !editMode ? 'none' : undefined, color: '#ff1744' }}
-              onClick={selfDelete}
-            >
-              <Cancel />
-            </IconButton>
-          }
-        />
-      </Card>
-    </Link>
+    <Card
+      className={editMode ? classes.editModeCard : classes.normalCard}
+      onClick={() => {
+        if (!editMode) {
+          history.push(url);
+        }
+      }}
+      elevation={3}
+    >
+      <CardHeader
+        title={favorite.name}
+        action={
+          <IconButton
+            size="small"
+            style={{
+              display: !editMode ? 'none' : undefined,
+              color: '#ff1744',
+            }}
+            onClick={selfDelete}
+          >
+            <Cancel />
+          </IconButton>
+        }
+      />
+    </Card>
   );
 };
 

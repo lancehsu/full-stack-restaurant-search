@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './styles/global.css';
 import Home from './pages/index';
 import Favorites from './pages/favorites';
-import FavoriteItems from './pages/favoriteItems';
+import FavoriteContent from './pages/favoriteContent';
 import getMuiThemeObj from './styles/theme';
 
 import NavBar from './components/NavBar';
@@ -42,7 +42,7 @@ const App: FC = () => {
           <NavBar />
           <MessageDialog />
           <Switch>
-            <Route path="/favorites/:category" component={FavoriteItems} />
+            <Route path="/favorites/:content" component={FavoriteContent} />
             <Route path="/favorites" component={Favorites} />
             <Route path="/" component={Home} />
           </Switch>
