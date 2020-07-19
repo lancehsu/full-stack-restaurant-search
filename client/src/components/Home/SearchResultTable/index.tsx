@@ -34,7 +34,7 @@ const SearchResultTable: FC = () => {
   }, [user, dispatch]);
 
   return (
-    <TableContainer style={{ gridArea: '6 / 1 / 12 / 13', width: '90%' }} component={Paper}>
+    <TableContainer style={{ gridArea: '5 / 1 / 12 / 13', width: '90%' }} component={Paper}>
       <Table stickyHeader>
         <TableHead>
           <TableRow>

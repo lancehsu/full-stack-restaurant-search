@@ -10,7 +10,7 @@ import TimeInput from './TimeInput';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      gridArea: '3 / 1 / 5 / 13',
+      gridArea: '2 / 1 / 4 / 13',
       display: 'flex',
       flexFlow: 'column',
       alignItems: 'center',

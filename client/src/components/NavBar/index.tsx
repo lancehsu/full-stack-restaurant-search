@@ -31,12 +31,12 @@ const NavBar: FC = () => {
             Restaurant Search
           </Typography>
         </ButtonBase>
-
         <div
           style={{
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             alignContent: 'center',
+            width: '12%',
           }}
         >
           <Tooltip title={darkMode ? 'Light' : 'Dark'}>

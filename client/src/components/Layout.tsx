@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'grid',
       gridTemplate: 'repeat(12, 1fr) / repeat(12, 1fr)',
       justifyItems: 'center',
-      gridGap: theme.spacing(1),
+      gridGap: theme.spacing(3),
     },
   })
 );
