@@ -10,14 +10,12 @@ import Paper from '@material-ui/core/Paper';
 
 import { State } from '../../../store/rootReducer';
 import { Restaurant } from '../../../store/restaurants/types';
-import { parseTimeToStr } from '../../../util/dateOperations';
+import { parseTimeToStr, dayList } from '../../../util/dateOperations';
 import { User } from '../../../store/user/types';
 import { getFavorites } from '../../../store/favorites/actions';
 import { Favorite } from '../../../store/favorites/types';
 import AddToFavoriteBtn from './AddToFavoriteBtn';
 import { resetRestaurants } from '../../../store/restaurants/actions';
-
-const tableHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const SearchResultTable: FC = () => {
   const dispatch = useDispatch();
@@ -45,7 +43,7 @@ const SearchResultTable: FC = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            {tableHead.map((e) => (
+            {dayList.map((e) => (
               <TableCell key={e}>{e}</TableCell>
             ))}
             <TableCell></TableCell>

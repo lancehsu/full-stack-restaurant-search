@@ -14,6 +14,8 @@ export enum Dates {
   sat = '6',
 }
 
+export const dayList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 export const dateNumToStr = (dateNum: Dates): string => {
   switch (dateNum) {
     case Dates.sun:
@@ -61,7 +63,7 @@ export const parseTimeToStr = (start: number, end: number): string => {
   return `${startTimeStr}\n-${endTimStr}`;
 };
 
-const dateToStrArrProcess = ({
+export const dateToStrArrProcess = ({
   name,
   _id,
   __v,
@@ -80,5 +82,3 @@ const dateToStrArrProcess = ({
       )} ${parseTimeToStr(open, close)}`;
     });
 };
-
-export default dateToStrArrProcess;
