@@ -7,12 +7,12 @@ const favoriteSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
     coAuthors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
   },
   { timestamps: true }
 );

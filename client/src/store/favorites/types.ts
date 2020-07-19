@@ -1,8 +1,11 @@
 import { Restaurant } from '../restaurants/types';
+import { User } from '../user/types';
 
 export type Favorite = {
   name: string;
   restaurants: Restaurant[];
+  author: User;
+  coAuthors: User[];
 };
 
 export const GET_FAVORITES_SUCCESS = 'GET_FAVORITES_SUCCESS';

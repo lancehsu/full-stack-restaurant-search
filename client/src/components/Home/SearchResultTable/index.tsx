@@ -20,7 +20,7 @@ const tableHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const SearchResultTable: FC = () => {
   const dispatch = useDispatch();
-  const { restaurants, user } = useSelector<
+  const { restaurants, user, favorites } = useSelector<
     State,
     { restaurants: Restaurant[]; user: User; favorites: Favorite[] }
   >((state) => ({
@@ -74,7 +74,7 @@ const SearchResultTable: FC = () => {
                   {parseTimeToStr(row[6].open, row[6].close)}
                 </TableCell>
                 <TableCell>
-                  <AddToFavoriteBtn restaurant={row} />
+                  <AddToFavoriteBtn restaurant={row} favorites={favorites} user={user} />
                 </TableCell>
               </TableRow>
             );

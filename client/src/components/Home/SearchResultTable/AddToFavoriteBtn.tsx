@@ -1,8 +1,7 @@
-import React, { FC, memo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, memo } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { State } from '../../../store/rootReducer';
-import { Button, IconButton, Popper, useTheme } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import { Bookmark } from '@material-ui/icons';
 import { User } from '../../../store/user/types';
 import { putFavorite } from '../../../store/favorites/actions';
@@ -15,17 +14,12 @@ import { Restaurant } from '../../../store/restaurants/types';
 
 interface AddToFavoriteBtnProps {
   restaurant: Restaurant;
+  favorites: Favorite[];
+  user: User;
 }
-const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurant }) => {
+const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurant, favorites, user }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const { user, favorites } = useSelector<State, { user: User; favorites: Favorite[] }>(
-    (state) => ({
-      favorites: state.favorites,
-      user: state.user,
-    })
-  );
 
   // * If not login
   if (user === null) return <div />;
@@ -68,9 +62,10 @@ const AddToFavoriteBtn: FC<AddToFavoriteBtnProps> = ({ restaurant }) => {
         {favoriteName === '' ? (
           <Bookmark />
         ) : (
-          <Button color="inherit" startIcon={<Bookmark />}>
-            {favoriteName}
-          </Button>
+          <>
+            <Bookmark />
+            <Typography>{favoriteName}</Typography>
+          </>
         )}
       </PopupMenuList>
     </>

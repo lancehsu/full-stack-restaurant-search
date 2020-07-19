@@ -13,7 +13,7 @@ favoriteRouter
   })
   .get(cors.cors, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const favorites = await Favorites.find({ author: req.user.id }).lean();
+      const favorites = await Favorites.find({ author: req.user.id }).populate('author').populate('restaurants').lean();
       res.statusCode = 200;
       res.json(favorites);
     } catch (err) {
@@ -27,7 +27,7 @@ favoriteRouter
   .get(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
       const favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName })
-        .populate('user')
+        .populate('author')
         .populate('restaurant')
         .lean();
       res.statusCode = 200;
@@ -65,14 +65,36 @@ favoriteRouter
   })
   .put(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const updatedFavorite = await Favorites.findOneAndUpdate(
-        { author: req.user.id, name: req.params.favoriteName },
-        { $set: req.body },
-        { new: true }
-      );
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.json(updatedFavorite);
+      const { name, restaurant } = req.body;
+      if (name === undefined) {
+        // * Update restaurants
+        const favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName }).populate(
+          'restaurants'
+        );
+
+        const idx = favorite.restaurants.findIndex((e) => e.name === restaurant.name);
+        if (idx === -1) favorite.restaurants.push(restaurant);
+
+        await favorite.save();
+        const resp = await Favorites.findById(favorite.id).populate('restaurants');
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(resp);
+      } else {
+        // * Update name
+        const updatedFavorite = await Favorites.findOneAndUpdate(
+          { author: req.user.id, name: req.params.favoriteName },
+          { $set: { name } },
+          { new: true }
+        )
+          .populate('restaurants')
+          .populate('author')
+          .populate('coAuthors')
+          .lean();
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(updatedFavorite);
+      }
     } catch (err) {
       next(err);
     }
@@ -106,7 +128,7 @@ favoriteRouter
 //         await favorites.save();
 //       }
 //       const postFavorites = await Favorites.findById(favorites.id)
-//         .populate('user')
+//         .populate('author')
 //         .populate({ path: 'restaurants', populate: { path: 'comments.author' } });
 //       res.statusCode = 200;
 //       res.setHeader('Content-Type', 'application/json');
@@ -126,7 +148,7 @@ favoriteRouter
 //     favorites.restaurants.remove(req.params.restaurantId);
 //     await favorites.save();
 //     const postFavorites = await Favorites.findById(favorites.id)
-//       .populate('user')
+//       .populate('author')
 //       .populate({ path: 'restaurants', populate: { path: 'comments.author' } });
 //     res.statusCode = 200;
 //     res.setHeader('Content-Type', 'application/json');

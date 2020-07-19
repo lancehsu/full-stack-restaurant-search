@@ -62,7 +62,7 @@ const AddFavoriteDialog: FC = () => {
             variant="contained"
             color="primary"
             onClick={(): void => {
-              dispatch(postFavorite(favoriteName));
+              dispatch(postFavorite(favoriteName.toString()));
               setFavoriteName('');
               dispatch(closeDialog());
             }}
