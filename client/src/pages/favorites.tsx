@@ -1,11 +1,19 @@
 import React, { useState, FC } from 'react';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, useTheme } from '@material-ui/core';
 import FavoritesContainer from '../components/Favorites/FavoritesContainer';
 import { EditOutlined } from '@material-ui/icons';
 import AddFavoriteDialog from '../components/Favorites/AddFavoriteDialog';
 
 const Favorites: FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
+  const theme = useTheme();
+  let backgroundColor: string;
+  if (theme.palette.type === 'dark') {
+    backgroundColor = editMode ? theme.palette.grey[500] : theme.palette.grey[900];
+  } else {
+    backgroundColor = editMode ? theme.palette.grey[400] : theme.palette.grey[50];
+  }
+
   return (
     <>
       <Typography
@@ -23,7 +31,10 @@ const Favorites: FC = () => {
       <Button
         color="primary"
         startIcon={<EditOutlined />}
-        style={{ gridArea: ' 3 / 2 / 4 / 3' }}
+        style={{
+          gridArea: ' 3 / 2 / 4 / 3',
+          backgroundColor,
+        }}
         onClick={() => {
           setEditMode((prev) => !prev);
         }}

@@ -32,6 +32,7 @@ const FavoritesContainer: FC<FavoritesContainerProps> = ({ editMode }) => {
           editMode={editMode}
           idx={idx}
           favorite={e}
+          url={`/favorites/${e.name}`}
           selfDelete={() => {
             dispatch(
               showMessage(`It will delete all items in "${e.name}", confirm?`, () => {
