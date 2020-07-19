@@ -4,4 +4,4 @@ export type ShowMessage = { type: typeof SHOW_MESSAGE; payload: Message };
 export type CloseMessage = { type: typeof CLOSE_MESSAGE };
 export type MessageAction = ShowMessage | CloseMessage;
 
-export type Message = { open: boolean; message: string; confirmFunction: Function | null };
+export type Message = { open: boolean; content: string; confirmFunction: null | Function };

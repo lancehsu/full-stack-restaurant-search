@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFavorite, getFavorites } from '../../store/favorites/actions';
 import { Favorite } from '../../store/favorites/types';
-import { showMessage } from '../../store/Message/actions';
+import { showMessage } from '../../store/message/actions';
 import { State } from '../../store/rootReducer';
 import FavoriteCard from './FavoriteCard';
 

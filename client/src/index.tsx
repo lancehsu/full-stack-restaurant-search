@@ -11,6 +11,8 @@ import { initialState } from './store/rootReducer';
 
 const { store, persistor } = configureStore(initialState);
 
+// export persistor;
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={<CircularProgress />} persistor={persistor}>

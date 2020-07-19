@@ -11,5 +11,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["**.ts"],
-  "exclude": ["./client", "./build"]
+  "exclude": ["./client", "./build", "./node_modules"]
 }

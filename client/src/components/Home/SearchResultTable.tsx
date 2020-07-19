@@ -31,8 +31,8 @@ const SearchResultTable: FC = () => {
   }));
 
   useEffect(() => {
-    dispatch(getFavorites());
-  }, [dispatch]);
+    if (user !== null) dispatch(getFavorites());
+  }, [user, dispatch]);
 
   return (
     <TableContainer style={{ gridArea: '6 / 1 / 12 / 13', width: '90%' }} component={Paper}>

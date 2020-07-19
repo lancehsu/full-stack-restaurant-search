@@ -6,8 +6,8 @@ const messageReducer = (state = initialState.message, action: MessageAction): Me
     case SHOW_MESSAGE:
       return {
         open: true,
-        message: action.payload.message,
-        confirmFunction: action.payload.confirmFunction,
+        content: action.payload.content,
+        confirmFunction: action.payload.confirmFunction ?? null,
       };
     case CLOSE_MESSAGE:
       return initialState.message;

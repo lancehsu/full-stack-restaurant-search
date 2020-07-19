@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
-import { showMessage } from '../Message/actions';
-import { ShowMessage } from '../Message/types';
+import { showMessage } from '../message/actions';
+import { ShowMessage } from '../message/types';
 
 import { State } from '../rootReducer';
 import {
@@ -20,14 +20,17 @@ const loginSuccess = (data: User): LoginSuccess => ({
   payload: data,
 });
 
-const loginFailure = (error: any): LoginFailure => {
-  console.error(error);
-  alert(error);
+const loginFailure = (): LoginFailure => {
   return { type: LOGIN_FAILURE };
 };
 
 export const logout = (): Logout => ({ type: LOGOUT });
 
+type LoginErrorData = {
+  success: boolean;
+  status: string;
+  err: { name: string; message: string };
+};
 export const login = (
   email: string,
   password: string
@@ -36,11 +39,16 @@ export const login = (
     .post('/api/user/login', { username: email, password })
     .then(({ data }) => {
       if (data.success) {
-        dispatch(showMessage(data.status));
+        console.info(data.status);
         dispatch(loginSuccess({ email, name: data.name, token: data.token }));
       }
     })
-    .catch((err) => {
-      dispatch(loginFailure(err));
+    .catch(({ response }) => {
+      const { data }: { data: LoginErrorData } = response;
+      if (data.success === false) {
+        dispatch(showMessage(`${data.status}: ${data.err.message}`));
+      }
+
+      dispatch(loginFailure());
     });
 };

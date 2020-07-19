@@ -8,8 +8,8 @@ import { Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { State } from '../store/rootReducer';
-import { Message } from '../store/Message/types';
-import { closeMessage } from '../store/Message/actions';
+import { Message } from '../store/message/types';
+import { closeMessage } from '../store/message/actions';
 
 const MessageDialog: FC = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const MessageDialog: FC = () => {
       }}
     >
       <DialogContent>
-        <Typography variant="body1">{message.message}</Typography>
+        <Typography variant="body1">{message.content}</Typography>
       </DialogContent>
       <DialogActions>
         {message.confirmFunction !== null && (

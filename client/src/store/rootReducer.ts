@@ -7,8 +7,8 @@ import { Restaurant } from './restaurants/types';
 import restaurantsReducer from './restaurants/reducer';
 import favoritesReducer from './favorites/reducer';
 import { Favorite } from './favorites/types';
-import { Message } from './Message/types';
-import messageReducer from './Message/reducer';
+import { Message } from './message/types';
+import messageReducer from './message/reducer';
 import userReducer from './user/reducer';
 import { User } from './user/types';
 
@@ -24,10 +24,10 @@ export interface State {
 export const initialState: State = {
   user: null,
   darkMode: false,
+  message: { open: false, confirmFunction: null, content: '' },
   dialogIsOpen: false,
   restaurants: [],
   favorites: [],
-  message: { open: false, confirmFunction: null, message: '' },
 };
 
 const rootReducer = combineReducers({

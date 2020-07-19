@@ -7,8 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { DialogTitle } from '@material-ui/core';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { showMessage } from '../../../store/Message/actions';
-import { AlternateEmailOutlined } from '@material-ui/icons';
+import { showMessage } from '../../../store/message/actions';
 
 const SignupDialog: FC = () => {
   const dispatch = useDispatch();
@@ -80,15 +79,23 @@ const SignupDialog: FC = () => {
             variant="contained"
             color="primary"
             onClick={(): void => {
+              if (email.length === 0) {
+                dispatch(showMessage("Email can't be empty"));
+              }
+              if (password.length === 0) {
+                dispatch(showMessage("Password can't be empty"));
+              }
               axios
                 .post('/api/user/signup', { name, username: email, password })
                 .then(({ data }) => {
-                  if (data.success) dispatch(showMessage(data.status));
                   setOpen(false);
                   resetTextField();
                 })
-                .catch((err) => {
-                  dispatch(showMessage(err));
+                .catch((err: ErrorResponse) => {
+                  const {
+                    response: { data },
+                  } = err;
+                  dispatch(showMessage(`${data.err.message}`));
                   setOpen(false);
                   resetTextField();
                 });
@@ -100,6 +107,17 @@ const SignupDialog: FC = () => {
       </Dialog>
     </>
   );
+};
+
+type ErrorResponse = {
+  response: {
+    data: ErrorData;
+  };
+};
+type ErrorData = {
+  success?: boolean;
+  status?: string;
+  err: { name: string; message: string };
 };
 
 export default SignupDialog;

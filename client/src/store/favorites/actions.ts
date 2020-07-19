@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
-import { showMessage } from '../Message/actions';
-import { ShowMessage } from '../Message/types';
+import { showMessage } from '../message/actions';
+import { ShowMessage } from '../message/types';
 import { Restaurant } from '../restaurants/types';
 
 import { State } from '../rootReducer';
@@ -40,26 +40,31 @@ const deleteFavoriteSuccess = (data: string): DeleteFavoriteSuccess => ({
   payload: data,
 });
 
-const requestFavoritesFailure = (error: any): RequestFavoritesFailure => {
-  console.error(error);
-  alert(error);
+const requestFavoritesFailure = (): RequestFavoritesFailure => {
   return { type: REQUEST_FAVORITES_FAILURE };
 };
 
 export const getFavorites = (
   name: string = ''
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (
+  dispatch,
+  getState
+) => {
   const { user } = getState();
   return axios
     .get(`/api/favorites/${name}`, {
       headers: { Authorization: `bearer ${user?.token}` },
     })
-    .then(({ data }) => {
-      dispatch(getFavoritesSuccess(data));
-      return void 0;
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(getFavoritesSuccess(data.data));
+      }
     })
     .catch((err) => {
-      dispatch(requestFavoritesFailure(err));
+      // dispatch(showMessage(err));
+      alert(err);
+      console.error(err);
+      dispatch(requestFavoritesFailure());
     });
 };
 
@@ -70,7 +75,6 @@ export const postFavorite = (
   getState
 ) => {
   const { user } = getState();
-  console.log(user?.token);
   return axios
     .post(
       `/api/favorites/${favoriteName}`,
@@ -82,7 +86,10 @@ export const postFavorite = (
       else dispatch(showMessage(`${favoriteName} has been created!`));
     })
     .catch((err) => {
-      dispatch(requestFavoritesFailure(err));
+      // dispatch(showMessage(err));
+      alert(err);
+      console.error(err);
+      dispatch(requestFavoritesFailure());
     });
 };
 
@@ -90,7 +97,10 @@ type UpdateObject = { name: string; restaurant: Restaurant };
 export const putFavorite = (
   favoriteName: string,
   { name, restaurant }: UpdateObject
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (
+  dispatch,
+  getState
+) => {
   const { user } = getState();
 
   const queryStr = restaurant === undefined ? '' : `?restaurant=${restaurant.name}`;
@@ -106,13 +116,19 @@ export const putFavorite = (
       return void 0;
     })
     .catch((err) => {
-      dispatch(requestFavoritesFailure(err));
+      // dispatch(showMessage(err));
+      alert(err);
+      console.error(err);
+      dispatch(requestFavoritesFailure());
     });
 };
 
 export const deleteFavorite = (
   favoriteName: string
-): ThunkAction<Promise<void>, State, undefined, FavoritesAction> => (dispatch, getState) => {
+): ThunkAction<Promise<void>, State, undefined, FavoritesAction | ShowMessage> => (
+  dispatch,
+  getState
+) => {
   const { user } = getState();
   return axios
     .delete(`/api/favorites/${favoriteName}`, {
@@ -123,6 +139,9 @@ export const deleteFavorite = (
       return void 0;
     })
     .catch((err) => {
-      dispatch(requestFavoritesFailure(err));
+      // dispatch(showMessage(err));
+      alert(err);
+      console.error(err);
+      dispatch(requestFavoritesFailure());
     });
 };

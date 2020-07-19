@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useMemo } from 'react';
+import React, { FC, useState, useEffect, useMemo, useCallback } from 'react';
 import { Search } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme, fade, InputBase, Button } from '@material-ui/core';
 import { getRestaurants, TimeObject } from '../../store/restaurants/actions';
@@ -83,10 +83,35 @@ const SearchField: FC = () => {
     setSearchDateOption((prev) => ({ ...prev, [date]: true }));
   }, [date, setSearchDateOption]);
 
+  const searchRestaurants = useCallback(() => {
+    dispatch(getRestaurants(searchName, dates, searchTime));
+    setSearchName('');
+    setSearchTime({ hour: '', min: '', am: false });
+    setIsSearchFieldFocus(false);
+    setSearchDateOption({
+      [Dates.sun]: false,
+      [Dates.mon]: false,
+      [Dates.tue]: false,
+      [Dates.wed]: false,
+      [Dates.thu]: false,
+      [Dates.fri]: false,
+      [Dates.sat]: false,
+    });
+  }, [
+    searchName,
+    dates,
+    searchTime,
+    dispatch,
+    setSearchDateOption,
+    setSearchName,
+    setSearchTime,
+    setIsSearchFieldFocus,
+  ]);
+
   useEffect(() => {
     const pressEnterCallback = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
-        dispatch(getRestaurants(searchName, dates, searchTime));
+        searchRestaurants();
       }
     };
 
@@ -94,7 +119,7 @@ const SearchField: FC = () => {
       window.addEventListener('keypress', pressEnterCallback);
       return () => window.removeEventListener('keypress', pressEnterCallback);
     }
-  }, [isSearchFieldFocus, dates, searchName, searchTime, dispatch]);
+  }, [isSearchFieldFocus, dates, searchName, searchTime, searchRestaurants]);
   return (
     <div className={classes.container}>
       <div className={classes.searchContainer}>
@@ -125,7 +150,7 @@ const SearchField: FC = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            dispatch(getRestaurants(searchName, dates, searchTime));
+            searchRestaurants();
           }}
         >
           Search
