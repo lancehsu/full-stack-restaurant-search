@@ -26,10 +26,11 @@
     "typescript": "^3.9.6"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "client-build": "cd ./client && yarn build && cd ..",
+    "develop": "ts-node-dev --respawn --transpile-only index.ts",
+    "client-build": "cd ./client && yarn install && yarn build",
+    "local-start": "yarn client-build && ts-node-dev --respawn --transpile-only index.ts",
     "start": "node ./build/index.js",
-    "build": "npx tsc"
+    "build": "yarn client-build && npx tsc"
   },
   "devDependencies": {
     "@types/mongoose": "^5.7.32",
