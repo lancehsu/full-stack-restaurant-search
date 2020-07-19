@@ -61,7 +61,6 @@ export const getFavorites = (
       }
     })
     .catch((err) => {
-      // dispatch(showMessage(err));
       alert(err);
       console.error(err);
       dispatch(requestFavoritesFailure());
@@ -86,7 +85,6 @@ export const postFavorite = (
       else dispatch(showMessage(`${favoriteName} has been created!`));
     })
     .catch((err) => {
-      // dispatch(showMessage(err));
       alert(err);
       console.error(err);
       dispatch(requestFavoritesFailure());
@@ -114,8 +112,13 @@ export const putFavorite = (
     })
     .then(({ data }) => {
       dispatch(putFavoriteSuccess(data as Favorite));
-      if (!updateObject.remove)
-        dispatch(showMessage(`${updateObject.restaurant?.name} added to ${favoriteName}`));
+      if (!updateObject.remove) {
+        if (updateObject.name === undefined) {
+          dispatch(showMessage(`${updateObject.restaurant?.name} added to ${favoriteName}`));
+        } else {
+          dispatch(showMessage(`Rename success`));
+        }
+      }
     })
     .catch((err) => {
       alert(err);
@@ -140,7 +143,6 @@ export const deleteFavorite = (
       return void 0;
     })
     .catch((err) => {
-      // dispatch(showMessage(err));
       alert(err);
       console.error(err);
       dispatch(requestFavoritesFailure());

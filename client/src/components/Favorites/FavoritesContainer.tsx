@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteFavorite, getFavorites } from '../../store/favorites/actions';
+import { deleteFavorite, getFavorites, putFavorite } from '../../store/favorites/actions';
 import { Favorite } from '../../store/favorites/types';
 import { showMessage } from '../../store/message/actions';
 import { State } from '../../store/rootReducer';
@@ -12,9 +12,11 @@ interface FavoritesContainerProps {
 const FavoritesContainer: FC<FavoritesContainerProps> = ({ editMode }) => {
   const dispatch = useDispatch();
   const favorites = useSelector<State, Favorite[]>((state) => state.favorites);
+
   useEffect(() => {
     dispatch(getFavorites());
   }, [dispatch]);
+
   return (
     <div
       style={{
@@ -26,13 +28,15 @@ const FavoritesContainer: FC<FavoritesContainerProps> = ({ editMode }) => {
         gap: '3em',
       }}
     >
-      {favorites.map((e, idx) => (
+      {favorites.map((e) => (
         <FavoriteCard
           key={e.name}
           editMode={editMode}
-          idx={idx}
           favorite={e}
           url={`/favorites/${e.name}`}
+          selfEditName={(newName: string) => {
+            dispatch(putFavorite(e.name, { name: newName, remove: false }));
+          }}
           selfDelete={() => {
             dispatch(
               showMessage(`It will delete all items in "${e.name}", confirm?`, () => {

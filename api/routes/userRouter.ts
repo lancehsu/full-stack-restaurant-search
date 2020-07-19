@@ -48,7 +48,6 @@ userRouter.post('/login', cors.corsWithOptions, (req, res, next) => {
       res.json({ success: false, status: 'Login failed', err: info });
       return;
     }
-    console.log(user);
 
     req.logIn(user, (error) => {
       if (error) {

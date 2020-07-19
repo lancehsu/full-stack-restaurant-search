@@ -11,6 +11,7 @@ import { State } from '../../store/rootReducer';
 import { closeDialog, openDialog } from '../../store/dialog/actions';
 import { AddCircleOutline } from '@material-ui/icons';
 import { postFavorite } from '../../store/favorites/actions';
+import { showMessage } from '../../store/message/actions';
 
 const AddFavoriteDialog: FC = () => {
   const isOpen = useSelector<State, boolean>((state) => state.dialogIsOpen);
@@ -62,9 +63,13 @@ const AddFavoriteDialog: FC = () => {
             variant="contained"
             color="primary"
             onClick={(): void => {
-              dispatch(postFavorite(favoriteName.toString()));
-              setFavoriteName('');
-              dispatch(closeDialog());
+              if (favoriteName !== '') {
+                dispatch(postFavorite(favoriteName.toString()));
+                setFavoriteName('');
+                dispatch(closeDialog());
+              } else {
+                dispatch(showMessage('Empty name is not valid'));
+              }
             }}
           >
             Submit

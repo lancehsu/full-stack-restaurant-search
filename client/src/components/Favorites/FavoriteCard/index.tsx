@@ -5,6 +5,9 @@ import { Cancel } from '@material-ui/icons';
 import { createStyles, fade, IconButton, makeStyles, Theme } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
+import { Favorite } from '../../../store/favorites/types';
+import FavoriteCardTitle from './FavoriteCardTitle';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     editModeCard: {
@@ -28,11 +31,17 @@ const useStyles = makeStyles((theme: Theme) =>
 interface FavoriteCardProps {
   editMode: boolean;
   url: string;
-  idx: number;
-  favorite: any;
+  favorite: Favorite;
+  selfEditName: (newName: string) => void;
   selfDelete: () => void;
 }
-const FavoriteCard: FC<FavoriteCardProps> = ({ editMode, url, favorite, selfDelete }) => {
+const FavoriteCard: FC<FavoriteCardProps> = ({
+  editMode,
+  url,
+  favorite,
+  selfDelete,
+  selfEditName,
+}) => {
   const classes = useStyles();
   const history = useHistory();
   return (
@@ -46,7 +55,14 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ editMode, url, favorite, selfDele
       elevation={3}
     >
       <CardHeader
-        title={favorite.name}
+        title={
+          <FavoriteCardTitle
+            favoriteName={favorite.name}
+            editMode={editMode}
+            selfEditName={selfEditName}
+          />
+        }
+        disableTypography={true}
         action={
           <IconButton
             size="small"

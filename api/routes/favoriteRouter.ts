@@ -84,6 +84,12 @@ favoriteRouter
         res.setHeader('Content-Type', 'application/json');
         res.json(resp);
       } else {
+        if (name === '') {
+          res.statusCode = 405;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({ success: false, status: 'Rename failed', err: 'empty name is NOT valid' });
+          return;
+        }
         // * Update name
         const updatedFavorite = await Favorites.findOneAndUpdate(
           { author: req.user.id, name: req.params.favoriteName },
@@ -112,53 +118,5 @@ favoriteRouter
       next(err);
     }
   });
-
-// * Manipulate to restaurant list in the specific favorite
-// favoriteRouter
-//   .route('/:favoriteName')
-//   .options(cors.corsWithOptions, (req, res) => {
-//     res.sendStatus(200);
-//   })
-//   .post(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
-//     try {
-//       const favorite =
-//         (await Favorites.findOne({ user: req.user.id, name: req.params.favoriteName });
-//       const getNewRestaurant = favorites.restaurants.every(
-//         (restaurant) => restaurant.id.toString('hex') !== req.params.restaurantId
-//       );
-//       if (getNewRestaurant) {
-//         favorites.restaurants.push(req.params.restaurantId);
-//         await favorites.save();
-//       }
-//       const postFavorites = await Favorites.findById(favorites.id)
-//         .populate('author')
-//         .populate({ path: 'restaurants', populate: { path: 'comments.author' } });
-//       res.statusCode = 200;
-//       res.setHeader('Content-Type', 'application/json');
-//       res.json(postFavorites);
-//     } catch (err) {
-//       next(err);
-//     }
-//   })
-//   .put(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
-//     res.statusCode = 403;
-//     res.end(`PUT operaton not supported on /favorites/${req.params.restaurantId}`);
-//   })
-//   .delete(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {});
-// .delete(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
-//   try {
-//     const favorites = await Favorites.findOne({ user: req.user.id });
-//     favorites.restaurants.remove(req.params.restaurantId);
-//     await favorites.save();
-//     const postFavorites = await Favorites.findById(favorites.id)
-//       .populate('author')
-//       .populate({ path: 'restaurants', populate: { path: 'comments.author' } });
-//     res.statusCode = 200;
-//     res.setHeader('Content-Type', 'application/json');
-//     res.json(postFavorites);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 export default favoriteRouter;

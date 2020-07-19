@@ -17,7 +17,7 @@ const favoritesReducer = (state = initialState.favorites, action: FavoritesActio
       return state.concat(action.payload);
     case PUT_FAVORITE_SUCCESS: {
       const newState = [...state];
-      const idx = newState.findIndex((e) => e.name === action.payload.name);
+      const idx = newState.findIndex((e) => e._id === action.payload._id);
       newState[idx] = {
         ...newState[idx],
         name: action.payload.name,

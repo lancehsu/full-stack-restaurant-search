@@ -2,6 +2,7 @@ import { Restaurant } from '../restaurants/types';
 import { User } from '../user/types';
 
 export type Favorite = {
+  _id: string;
   name: string;
   restaurants: Restaurant[];
   author: User;
@@ -18,7 +19,7 @@ export type GetFavoritesSuccess = { type: typeof GET_FAVORITES_SUCCESS; payload:
 export type PostFavoriteSuccess = { type: typeof POST_FAVORITE_SUCCESS; payload: Favorite };
 export type PutFavoriteSuccess = {
   type: typeof PUT_FAVORITE_SUCCESS;
-  payload: { name: string; restaurants: Restaurant[] };
+  payload: Favorite;
 };
 export type DeleteFavoriteSuccess = {
   type: typeof DELETE_FAVORITE_SUCCESS;
