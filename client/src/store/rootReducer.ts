@@ -11,9 +11,11 @@ import { Message } from './message/types';
 import messageReducer from './message/reducer';
 import userReducer from './user/reducer';
 import { User } from './user/types';
+import inviteKeysReducer from './inviteKey/reducer';
 
 export interface State {
   user: User;
+  inviteKeys: string[];
   darkMode: boolean;
   message: Message;
   dialogIsOpen: boolean;
@@ -23,6 +25,7 @@ export interface State {
 
 export const initialState: State = {
   user: null,
+  inviteKeys: [],
   darkMode: false,
   message: { open: false, confirmFunction: null, content: '' },
   dialogIsOpen: false,
@@ -37,6 +40,7 @@ const rootReducer = combineReducers({
   dialogIsOpen: dialogIsOpenReducer,
   restaurants: restaurantsReducer,
   favorites: favoritesReducer,
+  inviteKeys: inviteKeysReducer,
 });
 
 const persistConfig = {
