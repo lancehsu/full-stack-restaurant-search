@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Lance Hsu <lancehsu12@gmail.com>",
+  "engines": {
+    "node": "12.18.1"
+  },
   "license": "MIT",
   "dependencies": {
     "@fast-csv/parse": "^4.3.1",
