@@ -28,7 +28,7 @@
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
     "client-build": "cd ./client && yarn build && cd ..",
     "start": "yarn client-build && yarn dev",
-    "build": "npx tsc && cd ./client && yarn build"
+    "build": "npx tsc"
   },
   "devDependencies": {
     "@types/mongoose": "^5.7.32",
