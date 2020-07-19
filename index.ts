@@ -23,7 +23,7 @@ mongoose.plugin((schema) => {
 const { MONGODB_URL, PORT } = config;
 
 const connect = mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.info(`Server listening on port ${PORT}`));
 
 const initDatabase = true;
 connect
