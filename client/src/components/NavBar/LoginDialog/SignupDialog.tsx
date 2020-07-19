@@ -88,6 +88,7 @@ const SignupDialog: FC = () => {
               axios
                 .post('/api/user/signup', { name, username: email, password })
                 .then(({ data }) => {
+                  dispatch(showMessage('Sign up success'));
                   setOpen(false);
                   resetTextField();
                 })

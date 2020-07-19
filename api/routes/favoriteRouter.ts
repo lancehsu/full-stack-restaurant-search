@@ -13,7 +13,10 @@ favoriteRouter
   })
   .get(cors.cors, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const favorites = await Favorites.find({ author: req.user.id }).populate('author').populate('restaurants').lean();
+      const favorites = await Favorites.find({ author: (req.user as any).id })
+        .populate('author')
+        .populate('restaurants')
+        .lean();
       res.statusCode = 200;
       res.json(favorites);
     } catch (err) {
@@ -26,7 +29,7 @@ favoriteRouter
   .route('/:favoriteName')
   .get(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName })
+      const favorite = await Favorites.findOne({ author: (req.user as any).id, name: req.params.favoriteName })
         .populate('author')
         .populate('restaurant')
         .lean();
@@ -39,10 +42,10 @@ favoriteRouter
   })
   .post(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      let favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName });
+      let favorite = await Favorites.findOne({ author: (req.user as any).id, name: req.params.favoriteName });
       if (!favorite) {
         favorite = await Favorites.create({
-          author: req.user.id,
+          author: (req.user as any).id,
           coAuthors: [],
           name: req.params.favoriteName,
           restaurants: [],
@@ -69,14 +72,17 @@ favoriteRouter
       const { name, restaurant, remove } = req.body;
       if (name === undefined) {
         // * Update restaurants
-        const favorite = await Favorites.findOne({ author: req.user.id, name: req.params.favoriteName }).populate(
-          'restaurants'
-        );
+        const favorite = await Favorites.findOne({
+          author: (req.user as any).id,
+          name: req.params.favoriteName,
+        }).populate('restaurants');
 
-        const idx = favorite.restaurants.findIndex((e) => e.name === restaurant.name);
+        const idx = (favorite as any).restaurants.findIndex((e) => e.name === restaurant.name);
         if (remove) {
-          favorite.restaurants = favorite.restaurants.slice(0, idx).concat(favorite.restaurants.slice(idx + 1));
-        } else if (idx === -1) favorite.restaurants.push(restaurant);
+          (favorite as any).restaurants = (favorite as any).restaurants
+            .slice(0, idx)
+            .concat((favorite as any).restaurants.slice(idx + 1));
+        } else if (idx === -1) (favorite as any).restaurants.push(restaurant);
 
         await favorite.save();
         const resp = await Favorites.findById(favorite.id).populate('restaurants');
@@ -92,7 +98,7 @@ favoriteRouter
         }
         // * Update name
         const updatedFavorite = await Favorites.findOneAndUpdate(
-          { author: req.user.id, name: req.params.favoriteName },
+          { author: (req.user as any).id, name: req.params.favoriteName },
           { $set: { name } },
           { new: true }
         )
@@ -110,7 +116,10 @@ favoriteRouter
   })
   .delete(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
     try {
-      const resp = await Favorites.findOneAndRemove({ author: req.user.id, name: req.params.favoriteName }).lean();
+      const resp = await Favorites.findOneAndRemove({
+        author: (req.user as any).id,
+        name: req.params.favoriteName,
+      }).lean();
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json(resp);

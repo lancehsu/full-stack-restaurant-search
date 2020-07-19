@@ -9,7 +9,7 @@ const userRouter = express.Router();
 
 userRouter.get('/me', cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id).lean();
+    const user = await User.findById((req.user as any).id).lean();
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json(user);
@@ -57,7 +57,7 @@ userRouter.post('/login', cors.corsWithOptions, (req, res, next) => {
         return;
       }
       // get JWT by encoding user id
-      const jwtToken = authenticate.getToken({ id: req.user.id });
+      const jwtToken = authenticate.getToken({ id: (req.user as any).id });
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json({ success: true, name: user.name, token: jwtToken, status: 'Login success' });
@@ -66,13 +66,12 @@ userRouter.post('/login', cors.corsWithOptions, (req, res, next) => {
 });
 
 userRouter.get('/logout', (req, res, next) => {
-  if (req.session) {
-    req.session.destroy();
+  if ((req as any).session) {
+    (req as any).session.destroy();
     res.clearCookie('session-id');
     res.redirect('/');
   } else {
     const err = new Error('You are not logged in!');
-    err.status = 403;
     next(err);
   }
 });

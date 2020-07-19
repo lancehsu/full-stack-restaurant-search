@@ -25,7 +25,7 @@ const { MONGODB_URL, PORT } = config;
 const connect = mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
-const initDatabase = false;
+const initDatabase = true;
 connect
   .then(async (db) => {
     console.info('Connected correctly to "Restaurant Search" DB');
