@@ -12,7 +12,7 @@ git clone git@github.com:lancehsu/glints-assessment.git
 
 #### Development mode
 
-For client-side
+For client side
 
 > `PORT: 3000`
 
@@ -22,7 +22,7 @@ yarn install
 yarn start
 ```
 
-For server-side
+For server side
 
 > `PORT: 8000`
 
@@ -41,7 +41,7 @@ yarn develop
 yarn install
 ```
 
-2. Install front-end package and Run Server
+2. Build front-end and Run server
 
 ```zsh
 yarn local-start
