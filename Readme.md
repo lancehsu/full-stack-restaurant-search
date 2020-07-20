@@ -35,15 +35,10 @@ yarn develop
 
 > `PORT: 8000`
 
-1. Install back-end package
+1. Build front-end and run server
 
 ```zsh
 yarn install
-```
-
-2. Build front-end and Run server
-
-```zsh
 yarn local-start
 ```
 
