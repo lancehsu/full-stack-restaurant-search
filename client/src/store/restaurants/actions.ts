@@ -36,8 +36,13 @@ export const getRestaurants = (
   name: string,
   dates: Dates[],
   time: TimeObject
-): ThunkAction<Promise<void>, State, undefined, RestaurantsAction | ShowMessage> => (dispatch) => {
-  if (dates.length === 0) dispatch(showMessage('Select at least one day'));
+): ThunkAction<Promise<void> | undefined, State, undefined, RestaurantsAction | ShowMessage> => (
+  dispatch
+) => {
+  if (dates.length === 0) {
+    dispatch(showMessage('Select at least one day'));
+    return;
+  }
   const { hour, min, am } = time;
   const dateStr: string = (dates as string[]).reduce((acc, curr) => `${acc},${curr}`);
   const timeStr =
