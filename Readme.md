@@ -21,7 +21,7 @@ yarn install
 yarn local-start
 ```
 
-3. Go http://localhost:8000/
+2. Go http://localhost:8000/
 
 ### Demo on Heroku
 
