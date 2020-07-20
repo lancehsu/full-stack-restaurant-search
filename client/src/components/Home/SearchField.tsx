@@ -89,10 +89,10 @@ const SearchField: FC = () => {
 
   const searchRestaurants = useCallback(() => {
     dispatch(getRestaurants(searchName, dates, searchTime));
-    setSearchName('');
-    setSearchTime({ hour: '', min: '', am: false });
     setIsSearchFieldFocus(false);
-    setSearchDateOption(initSearchDateOption.current);
+    // setSearchName('');
+    // setSearchTime({ hour: '', min: '', am: false });
+    // setSearchDateOption(initSearchDateOption.current);
   }, [
     searchName,
     dates,

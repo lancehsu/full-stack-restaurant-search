@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { Dates } from '../../util/dateOperations';
+import { showMessage } from '../message/actions';
+import { ShowMessage } from '../message/types';
 
 import { State } from '../rootReducer';
 import {
@@ -34,12 +36,10 @@ export const getRestaurants = (
   name: string,
   dates: Dates[],
   time: TimeObject
-): ThunkAction<Promise<void>, State, undefined, RestaurantsAction> => (dispatch) => {
+): ThunkAction<Promise<void>, State, undefined, RestaurantsAction | ShowMessage> => (dispatch) => {
+  if (dates.length === 0) dispatch(showMessage('Select at least one day'));
   const { hour, min, am } = time;
-  const dateStr: string = (dates.length === 0
-    ? ['0', '1', '2', '3', '4', '5', '6']
-    : (dates as string[])
-  ).reduce((acc, curr) => `${acc},${curr}`);
+  const dateStr: string = (dates as string[]).reduce((acc, curr) => `${acc},${curr}`);
   const timeStr =
     hour.length === 0
       ? ''
