@@ -4,13 +4,19 @@
 
 ### Run locally
 
-Run Server
+1. Install back-end package
+
+```zsh
+yarn install
+```
+
+2. Install front-end package and Run Server
 
 ```zsh
 yarn local-start
 ```
 
-And Go http://localhost:8000/
+3. Go http://localhost:8000/
 
 ### Demo on Heroku
 
