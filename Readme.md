@@ -10,27 +10,6 @@ Clone this repo
 git clone git@github.com:lancehsu/glints-assessment.git
 ```
 
-#### Development mode
-
-For client side
-
-> `PORT: 3000`
-
-```zsh
-cd client
-yarn install
-yarn start
-```
-
-For server side
-
-> `PORT: 8000`
-
-```zsh
-yarn install
-yarn develop
-```
-
 #### Build Front-end and run server
 
 > `PORT: 8000`
