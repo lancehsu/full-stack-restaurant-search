@@ -27,7 +27,7 @@
   },
   "scripts": {
     "develop": "ts-node-dev --respawn --transpile-only index.ts",
-    "client-build": "cd ./client && yarn install && yarn build",
+    "client-build": "cd ./client && yarn install && yarn build && cp -r build/* ../build/frontend/",
     "local-start": "yarn client-build && ts-node-dev --respawn --transpile-only index.ts",
     "start": "node ./build/index.js",
     "build": "npx tsc && yarn client-build"
