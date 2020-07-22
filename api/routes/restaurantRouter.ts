@@ -1,5 +1,4 @@
 import express from 'express';
-import { decodedTextSpanIntersectsWith } from 'typescript';
 import Restaurants from '../models/restaurants';
 import cors from './cors';
 

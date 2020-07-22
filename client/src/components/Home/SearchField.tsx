@@ -82,27 +82,21 @@ const SearchField: FC = () => {
     return (Object.keys(searchDateOption) as Dates[]).filter((date) => searchDateOption[date]);
   }, [searchDateOption]);
 
-  useEffect(() => {
-    initSearchDateOption.current = { ...initSearchDateOption.current, [date]: true };
-    setSearchDateOption(initSearchDateOption.current);
-  }, [date, setSearchDateOption]);
-
   const searchRestaurants = useCallback(() => {
     dispatch(getRestaurants(searchName, dates, searchTime));
     setIsSearchFieldFocus(false);
-    // setSearchName('');
-    // setSearchTime({ hour: '', min: '', am: false });
-    // setSearchDateOption(initSearchDateOption.current);
   }, [
     searchName,
     dates,
     searchTime,
     dispatch,
-    setSearchDateOption,
-    setSearchName,
-    setSearchTime,
     setIsSearchFieldFocus,
   ]);
+
+  useEffect(() => {
+    initSearchDateOption.current = { ...initSearchDateOption.current, [date]: true };
+    setSearchDateOption(initSearchDateOption.current);
+  }, [date, setSearchDateOption]);
 
   useEffect(() => {
     const pressEnterCallback = (e: KeyboardEvent) => {
@@ -115,7 +109,8 @@ const SearchField: FC = () => {
       window.addEventListener('keypress', pressEnterCallback);
       return () => window.removeEventListener('keypress', pressEnterCallback);
     }
-  }, [isSearchFieldFocus, dates, searchName, searchTime, searchRestaurants]);
+  }, [isSearchFieldFocus, searchRestaurants]);
+
   return (
     <div className={classes.container}>
       <div className={classes.searchContainer}>

@@ -72,6 +72,10 @@ const getDateAndTime = (detailArr: string[]): { [name: string]: { open: number; 
       if (lowerDetailArr[i] == '-') {
         startTime = parseStrToTime(lowerDetailArr[i - 2], lowerDetailArr[i - 1] === 'am');
         endTime = parseStrToTime(lowerDetailArr[i + 1], lowerDetailArr[i + 2] === 'am');
+
+        if (startTime > endTime) {
+          endTime += 24;
+        }
       }
     }
   }

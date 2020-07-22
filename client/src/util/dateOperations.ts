@@ -52,10 +52,17 @@ export const parseTimeToStr = (start: number, end: number): string => {
   let endAm = true;
   let endHour = end | 0;
   const endMin = (end - endHour) * 60;
+  // * If it's open time cross 12:00 am
+  if (endHour > 24) {
+    endHour -= 24;
+  } else if (endHour === 24) {
+    endHour -= 12;
+  }
   if (endHour > 12) {
     endHour -= 12;
     endAm = false;
   }
+
   const startTimeStr = `${startHour}:${startMin >= 10 ? startMin : `0${startMin}`} ${
     startAm ? 'AM' : 'PM'
   }`;
