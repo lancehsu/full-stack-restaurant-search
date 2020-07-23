@@ -23,9 +23,6 @@ const App: FC = () => {
 
   const theme = useMemo(() => createMuiTheme(getMuiThemeObj(darkMode)), [darkMode]);
 
-  // useEffect(() => {
-  //   persistor.purge()
-  // }, [])
   useEffect(() => {
     dispatch(changeDarkMode(prefersDarkMode));
   }, [prefersDarkMode, dispatch]);

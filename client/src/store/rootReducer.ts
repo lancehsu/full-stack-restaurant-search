@@ -46,6 +46,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['message', 'dialogIsOpen', 'restaurants', 'favorites', 'inviteKeys'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
