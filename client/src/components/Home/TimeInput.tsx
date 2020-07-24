@@ -18,7 +18,7 @@ const TimeInput: FC<TimeInputProps> = ({ setSearchTime }) => {
     if (hour !== '' && min === '') {
       setMin('0');
     }
-  }, [hour])
+  }, [min, hour, setMin])
 
   return (
     <div
