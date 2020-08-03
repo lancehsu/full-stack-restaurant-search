@@ -49,8 +49,8 @@ export const getRestaurants = (
     hour.length === 0
       ? ''
       : (
-          parseInt(hour) +
-          (am || parseInt(hour) === 12 ? 0 : 12) +
+          (parseInt(hour) === 12 ? 0 : parseInt(hour)) +
+          (am ? 0 : 12) +
           (min.length === 0 ? 0 : parseInt(min)) / 60
         ).toString();
 
