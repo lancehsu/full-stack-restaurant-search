@@ -25,4 +25,4 @@ yarn local-start
 
 ### Demo on Heroku
 
-[Heroku](https://glints-full-web-is-it-open.herokuapp.com/)
+[Heroku](https://full-stack-restaurant-search.herokuapp.com/)
