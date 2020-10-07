@@ -1,8 +1,6 @@
-# Glints Technical Assessment
+# Restaurant search web app example
 
-## Full-Stack Web - Is It Open
-
-### To Use
+## To Use
 
 Clone this repo
 
@@ -23,6 +21,6 @@ yarn local-start
 
 2. Go http://localhost:8000/
 
-### Demo on Heroku
+## Demo on Heroku
 
 [Heroku](https://full-stack-restaurant-search.herokuapp.com/)
