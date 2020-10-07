@@ -2,13 +2,13 @@
 
 ## To Use
 
-Clone this repo
+### Clone this repo
 
 ```zsh
 git clone git@github.com:lancehsu/glints-assessment.git
 ```
 
-#### Build Front-end and run server
+### Build Front-end and run server
 
 > `PORT: 8000`
 
