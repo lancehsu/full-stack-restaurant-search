@@ -1,11 +1,10 @@
 {
-  "name": "glints",
+  "name": "full-stack-restaurant-search",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Lance Hsu <lancehsu12@gmail.com>",
   "engines": {
-    "node": "12.18.1",
-    "yarn": "1.22.4"
+    "node": "14.9.0"
   },
   "license": "MIT",
   "dependencies": {

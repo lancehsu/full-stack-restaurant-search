@@ -1,4 +1,2 @@
 node_modules
-client/build
-build/frontend/*
-!build/frontend/index.html
+
