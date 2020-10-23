@@ -15,4 +15,7 @@ yarn local-start
 
 2. Go http://localhost:8000/
 
-## [Demo](https://full-stack-restaurant-search.herokuapp.com/)
+
+## Demo
+
+[Full Stack Restaurant Search](https://full-stack-restaurant-search.herokuapp.com/)
