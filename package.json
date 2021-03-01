@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "Lance Hsu <lancehsu12@gmail.com>",
   "engines": {
-    "node": "14.9.0"
+    "node": "14.16.0"
   },
   "license": "MIT",
   "dependencies": {
