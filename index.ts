@@ -16,28 +16,24 @@ import strToDateProcess from './api/util/strToDateProcess';
 import config from './config';
 
 const app = express();
-mongoose.plugin((schema) => {
-  schema.set('usePushEach', true);
-});
 
 const { MONGO_URL, PORT } = config;
 
-const connect = mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+const connect = mongoose.connect(MONGO_URL);
 app.listen(process.env.PORT ?? PORT, () => console.info(`Server listening on port ${process.env.PORT ?? PORT}`));
 
-const initDatabase = false;
 connect
   .then(async (db) => {
     console.info('Connected correctly to `Restaurant Search` DB');
     try {
-      if (initDatabase) {
+      if (process.env.INITIALIZE_DB) {
         // * Database clear
         await Promise.all(Object.keys(db.models).map((modelName) => db.models[modelName].deleteMany({})));
         // * Read and parse hours.csv
         const restaurantArr = [];
         const nameMap = new Map<string, number>();
         const stream = fs.createReadStream('./hours.csv');
-        await parseStream(stream)
+         parseStream(stream)
           .on('data', async (row) => {
             let name = row[0];
             const nameCount = nameMap.get(name);
