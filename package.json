@@ -34,7 +34,6 @@
     "build": "npx tsc && yarn client-build"
   },
   "devDependencies": {
-    "@types/mongoose": "^5.7.32",
     "@types/passport-local": "^1.0.33",
     "@types/passport-local-mongoose": "^4.0.13",
     "eslint": "^7.4.0",

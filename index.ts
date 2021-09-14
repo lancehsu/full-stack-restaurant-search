@@ -17,7 +17,7 @@ import config from './config';
 
 const app = express();
 mongoose.plugin((schema) => {
-  schema.options.usePushEach = true;
+  schema.set('usePushEach', true);
 });
 
 const { MONGO_URL, PORT } = config;
@@ -28,7 +28,7 @@ app.listen(process.env.PORT ?? PORT, () => console.info(`Server listening on por
 const initDatabase = false;
 connect
   .then(async (db) => {
-    console.info('Connected correctly to "Restaurant Search" DB');
+    console.info('Connected correctly to `Restaurant Search` DB');
     try {
       if (initDatabase) {
         // * Database clear
@@ -64,8 +64,8 @@ connect
             });
           })
           .on('error', (error) => console.error(error))
-          .on('end', async (rowCount: number) => {
-            await Restaurant.insertMany(restaurantArr, (err, resturants) => {
+          .on('end', (rowCount: number) => {
+            Restaurant.insertMany(restaurantArr).then((err) => {
               if (err) {
                 return console.error(err);
               }
