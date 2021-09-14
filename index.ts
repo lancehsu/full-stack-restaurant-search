@@ -20,9 +20,9 @@ mongoose.plugin((schema) => {
   schema.options.usePushEach = true;
 });
 
-const { MONGODB_URL, PORT } = config;
+const { MONGO_URL, PORT } = config;
 
-const connect = mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+const connect = mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 app.listen(process.env.PORT ?? PORT, () => console.info(`Server listening on port ${process.env.PORT ?? PORT}`));
 
 const initDatabase = false;

@@ -1,6 +1,7 @@
+require('dotenv').config()
+
 export default {
-  SECRET_KEY: '12345-67890-09876-54321',
-  MONGODB_URL:
-    'mongodb+srv://develop:develop@restaurant-search.xhfys.gcp.mongodb.net/restaurant_search?retryWrites=true&w=majority',
+  SECRET_KEY: process.env.SECRET_KEY,
+  MONGO_URL: process.env.MONGO_URL,
   PORT: 8000,
 };
